@@ -159,5 +159,10 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@shopify/flash-list": "^1.6.3",
+    "dayjs": "^1.11.10",
+    "react-native-parsed-text": "^0.0.22"
   }
 }
