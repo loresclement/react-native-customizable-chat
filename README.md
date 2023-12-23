@@ -42,11 +42,10 @@ export default function App() {
 }
 ```
 This will give you :
-
 <p>
-  <img src="https://clement-lores.fr/resources/Pictures/fast-chat-usage-0.jpg" width="200" title="How it looks">
-  <img src="https://clement-lores.fr/resources/Pictures/fast-chat-usage-1.jpg" width="200" alt="How it looks">
-  <img src="https://clement-lores.fr/resources/Pictures/fast-chat-usage-gif-0.gif" width="200" alt="How it looks">
+  <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-usage-0.jpg" width="200" title="How it looks">
+  <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-usage-1.jpg" width="200" alt="How it looks">
+  <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-usage-gif-0.gif" width="200" alt="How it looks">
 </p>
 
 ## Advanced usage
@@ -89,9 +88,9 @@ This will give you :
 ```
 
 <p>
-  <img src="https://clement-lores.fr/resources/Pictures/fast-chat-usage-2.jpg" width="200" title="How it looks">
-  <img src="https://clement-lores.fr/resources/Pictures/fast-chat-usage-3.jpg" width="200" alt="How it looks">
-  <img src="https://clement-lores.fr/resources/Pictures/fast-chat-usage-gif-1.gif" width="200" alt="How it looks">
+  <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-usage-2.jpg" width="200" title="How it looks">
+  <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-usage-3.jpg" width="200" alt="How it looks">
+  <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-usage-gif-1.gif" width="200" alt="How it looks">
 </p>
 
 ## Messages type
@@ -151,7 +150,7 @@ interface CustomizableChatMessage
 | inputStyle | TextStyle | Customize the style of the input |
 | inputPlaceholderColor | string | Color of the placeholder of the input |
 | inputPlaceholderValue | string | Value of the placeholder of the input |
-| customVideoBadge | ReactFragment | Add your own fragment to the video badge (video badge appears when the CustomizableChatMessage isVideo = true) <img src="https://clement-lores.fr/resources/Pictures/fast-chat-video-badge.jpg" width="80" alt="Video badge"> |
+| customVideoBadge | ReactFragment | Add your own fragment to the video badge (video badge appears when the CustomizableChatMessage isVideo = true) <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-video-badge.jpg" width="80" alt="Video badge"> |
 
 ## Supports me
 
