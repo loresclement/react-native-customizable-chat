@@ -1,6 +1,5 @@
 import React, { useEffect, useState, type ReactFragment } from 'react';
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, TouchableWithoutFeedback, Linking } from 'react-native';
-import { FlashList } from "@shopify/flash-list";
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, TouchableWithoutFeedback, Linking, FlatList } from 'react-native';
 import type { CustomizableChatMessage } from './types/Message';
 import type { ButtonProps, ImageStyle, StyleProp, ViewStyle } from 'react-native';
 import type { TextStyle } from 'react-native';
@@ -198,10 +197,9 @@ const CustomizableChat = (props: CustomizableChatProps) =>
 
     return (
         <View style={[styles.container, containerStyle]}>
-            <FlashList
+            <FlatList
                 data={messages}
                 renderItem={({ item }) => renderMessage(item)}
-                estimatedItemSize={50}
                 inverted
                 contentContainerStyle={{backgroundColor: backgroundColor}}
             />

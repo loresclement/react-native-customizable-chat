@@ -10,7 +10,6 @@ Lightweight and easy chat view for your react native chat apps
 -Automatic scale for images in bubble<br>
 -User avatar <br>
 -Fully customizable input and buttons<br>
--Best performances with <a href="https://shopify.github.io/flash-list/" target="_blank">FlashList</a> 
 
 ## Installation
 
