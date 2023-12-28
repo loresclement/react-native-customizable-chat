@@ -15,7 +15,6 @@ export default function App() {
   const addMessage = (msg: any) => 
   {
     const newMsg : CustomizableChatMessage = {
-      id: 4,
       content: msg.content,
       isUser: true
     }
@@ -30,7 +29,6 @@ export default function App() {
   const borderColor = '#66350C'
   const sendButtonColor = '#F76B15'
   
-
   return (
       <CustomizableChat 
         messages={messages}
@@ -56,6 +54,7 @@ export default function App() {
                                 color={sendButtonColor} 
                                 reverse
                           />}
+        onMsgPress={(e: any) => console.log(e)}
       />
   );
 }

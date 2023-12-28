@@ -1,12 +1,11 @@
 import React, { useEffect, useState, type ReactNode } from 'react';
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, TouchableWithoutFeedback, Linking, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Linking, FlatList } from 'react-native';
 import type { CustomizableChatMessage } from './types/Message';
 import type { ButtonProps, ImageStyle, StyleProp, ViewStyle } from 'react-native';
 import type { TextStyle } from 'react-native';
-import { Button } from 'react-native';
-import { Keyboard } from 'react-native';
 import dayjs from 'dayjs';
 import ParsedText from 'react-native-parsed-text';
+import InputSection from './components/InputSection';
 
 interface CustomizableChatProps
 {
@@ -62,7 +61,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             sendButtonProps,
             keepKeyboardOnSend,
             dividerColor,
-            hideBubbleDate,
+            hideBubbleDate = false,
             dateFormat = "HH:MM DD/MM/YYYY",
             customSendButton,
             bottomContainerStyle,
@@ -90,8 +89,6 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             customVideoBadge
             } = props
 
-    const [inputMessage, setInputMessage] = useState<string>("")
-
     const ChatImage = ({ uri }: { uri: string }) => 
     {
         const [aspectRatio, setAspectRatio] = useState<number>(1);
@@ -107,7 +104,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         }
                     },
                     error => {
-                        console.error('Erreur lors de la récupération de la taille de l\'image :', error);
+                        console.error('Error while getting the image size, ', error);
                     }
                 );
             }
@@ -185,16 +182,6 @@ const CustomizableChat = (props: CustomizableChatProps) =>
         )
     }
 
-    const sendMessage = () =>
-    {
-        const msg = { content: inputMessage }
-        onSend(msg)
-        setInputMessage("")
-
-        if(!keepKeyboardOnSend)
-            Keyboard.dismiss()
-    }
-
     return (
         <View style={[styles.container, containerStyle]}>
             <FlatList
@@ -202,51 +189,32 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                 renderItem={({ item }) => renderMessage(item)}
                 inverted
                 contentContainerStyle={{backgroundColor: backgroundColor}}
+                keyExtractor={(item: CustomizableChatMessage, index: number) => index.toString()}
             />
 
-            {!hideTopElement && inputTopElement}
-
-            {!noDivider && 
-            <View style={{backgroundColor: dividerColor ? dividerColor : 'lightgray', marginVertical: 10, width: '100%', height: 2}}/>}
-
-            {!hideInput && 
-            <View style={[styles.bottomBar, bottomContainerStyle]}>
-
-                {!hideLeftInputElement && 
-                <View style={styles.leftRightInputContainer}>
-                    {leftInputElement}
-                </View>}
-
-                <TextInput
-                    value={inputMessage}
-                    onChangeText={text => setInputMessage(text)}
-                    placeholder={inputPlaceholderValue}
-                    style={[styles.messageInput, inputStyle]}
-                    multiline
-                    placeholderTextColor={inputPlaceholderColor}
-                    maxLength={inputMaxLength}
-                />
-
-                {!hideRightInputElement && 
-                <View style={styles.leftRightInputContainer}>
-                    {rightInputElement}
-                </View>}
-
-                {((inputMessage.trim().length > 0 || alwaysShowSend) && !hideSendButton) && 
-                <View style={[styles.sendButton, sendButtonContainerStyle]}>
-                    {customSendButton ? 
-                        <TouchableWithoutFeedback onPress={sendMessage}>
-                            {customSendButton}
-                        </TouchableWithoutFeedback> 
-                    : 
-                    <Button
-                        title='Send'
-                        onPress={sendMessage}
-                        accessibilityLabel="Send your message"
-                        {...sendButtonProps}
-                    />}
-                </View>}
-            </View>}
+            <InputSection 
+                onSend={onSend} 
+                keepKeyboardOnSend={keepKeyboardOnSend} 
+                noDivider={noDivider} 
+                alwaysShowSend={alwaysShowSend} 
+                hideSendButton={hideSendButton} 
+                hideInput={hideInput} 
+                hideRightInputElement={hideRightInputElement} 
+                hideLeftInputElement={hideLeftInputElement} 
+                sendButtonContainerStyle={sendButtonContainerStyle} 
+                customSendButton={customSendButton} 
+                sendButtonProps={sendButtonProps} 
+                inputTopElement={inputTopElement} 
+                hideTopElement={hideTopElement} 
+                rightInputElement={rightInputElement} 
+                leftInputElement={leftInputElement} 
+                inputMaxLength={inputMaxLength} 
+                inputPlaceholderValue={inputPlaceholderValue} 
+                inputStyle={inputStyle} 
+                inputPlaceholderColor={inputPlaceholderColor} 
+                dividerColor={dividerColor} 
+                bottomContainerStyle={bottomContainerStyle} 
+            />
         </View>
     );
 };
@@ -255,48 +223,23 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-
     chatBox:{
         padding: 10,
         borderRadius: 10,
         margin: 10,
         maxWidth: '70%'
     },
-    bottomBar:{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        margin: 10,
-        marginTop: 0,
-    },
-    sendButton:{
-        alignSelf: 'center', 
-        margin: 5,
-        marginRight: 0
-    },
-    messageInput:{
-        padding: 5,
-        flexGrow: 1,
-        borderColor: 'black',
-        maxHeight: 150
-    },
-
-    leftRightInputContainer:{
-        alignSelf: 'center'
-    },
     dateStyle:{
         fontSize: 12,
         color: 'gray'
     },
-
     url: {
         color: 'blue',
         textDecorationLine: 'underline',
     },
-
     hashTag: {
         fontStyle: 'italic',
     },
-
     videoBadge:{
         position: 'absolute', 
         top: 5, 
@@ -306,7 +249,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         borderRadius: 5
     }
-
 });
 
 export default CustomizableChat;
