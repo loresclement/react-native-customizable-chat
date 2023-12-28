@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     messageInput:{
         padding: 5,
         flexGrow: 1,
+        flexShrink: 1,
         borderColor: 'black',
         maxHeight: 150
     },
