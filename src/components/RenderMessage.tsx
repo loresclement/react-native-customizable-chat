@@ -30,8 +30,6 @@ const RenderMessage = memo((props: RenderMessageProps) =>
 {
     const { msg, onMsgPress, onLongMsgPress, hideAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, styles, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress } = props
 
-    console.log("render " + msg.id)
-
     const ChatImage = ({ uri }: { uri: string }) => 
     {
         const [aspectRatio, setAspectRatio] = useState<number>(1);
