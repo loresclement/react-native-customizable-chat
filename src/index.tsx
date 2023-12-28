@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type ReactFragment } from 'react';
+import React, { useEffect, useState, type ReactNode } from 'react';
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, TouchableWithoutFeedback, Linking, FlatList } from 'react-native';
 import type { CustomizableChatMessage } from './types/Message';
 import type { ButtonProps, ImageStyle, StyleProp, ViewStyle } from 'react-native';
@@ -30,12 +30,12 @@ interface CustomizableChatProps
     sendButtonContainerStyle?: ViewStyle,
     imageStyle?: ImageStyle,
     dateFormat?: string,
-    customSendButton?: ReactFragment,
+    customSendButton?: ReactNode,
     sendButtonProps?: ButtonProps
-    inputTopElement?: ReactFragment,
+    inputTopElement?: ReactNode,
     hideTopElement?: boolean,
-    rightInputElement?: ReactFragment,
-    leftInputElement?: ReactFragment,
+    rightInputElement?: ReactNode,
+    leftInputElement?: ReactNode,
     otherUserBubbleColor?: string
     userBubbleColor?: string,
     inputMaxLength?: number,
@@ -46,7 +46,7 @@ interface CustomizableChatProps
     dividerColor?: string,
     bottomContainerStyle?: ViewStyle,
     dateTextStyle?: TextStyle,
-    customVideoBadge?: ReactFragment
+    customVideoBadge?: ReactNode
 }
 
 const CustomizableChat = (props: CustomizableChatProps) => 

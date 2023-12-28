@@ -37,7 +37,11 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "messenger",
+    "chat",
+    "react-component",
+    "bubble chat"
   ],
   "repository": {
     "type": "git",

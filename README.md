@@ -134,12 +134,12 @@ interface CustomizableChatMessage
 | dateTextStyle | TextStyle | Text style of the date in bubble |
 | bubbleTextStyle | TextStyle | Customize text in chat bubble |
 | imageStyle | ImageStyle | Customize the style of an image in bubble |
-| customSendButton | ReactFragment | Replace the default button by your own button. The onSend event is still triggered |
+| customSendButton | ReactNode | Replace the default button by your own button. The onSend event is still triggered |
 | sendButtonProps | ButtonProps | Add props of the default send button |
-| inputTopElement | ReactFragment | Add any fragment between the chat and the input |
+| inputTopElement | ReactNode | Add any fragment between the chat and the input |
 | hideTopElement | boolean | If true your fragment between the chat and the input won't display  |
-| rightInputElement | ReactFragment | Add any fragment on the right of the input |
-| leftInputElement | ReactFragment | Add any fragment on the left of the input |
+| rightInputElement | ReactNode | Add any fragment on the right of the input |
+| leftInputElement | ReactNode | Add any fragment on the left of the input |
 | hideRightInputElement | boolean | Default: false, If true display your fragment on the right of the input |
 | hideLeftInputElement | boolean | Default: false, If true display your fragment on the left of the input |
 | otherUserBubbleColor | string | Change the background color of the other user's bubble |
@@ -149,7 +149,7 @@ interface CustomizableChatMessage
 | inputStyle | TextStyle | Customize the style of the input |
 | inputPlaceholderColor | string | Color of the placeholder of the input |
 | inputPlaceholderValue | string | Value of the placeholder of the input |
-| customVideoBadge | ReactFragment | Add your own fragment to the video badge (video badge appears when the CustomizableChatMessage isVideo = true) <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-video-badge.jpg" width="80" alt="Video badge"> |
+| customVideoBadge | ReactNode | Add your own fragment to the video badge (video badge appears when the CustomizableChatMessage isVideo = true) <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-video-badge.jpg" width="80" alt="Video badge"> |
 
 ## Supports me
 
