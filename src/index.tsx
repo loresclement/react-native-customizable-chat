@@ -189,7 +189,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                 renderItem={({ item }) => renderMessage(item)}
                 inverted
                 contentContainerStyle={{backgroundColor: backgroundColor}}
-                keyExtractor={(item: CustomizableChatMessage, index: number) => index.toString()}
+                keyExtractor={(_item: CustomizableChatMessage, index: number) => index.toString()}
             />
 
             <InputSection 
