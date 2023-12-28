@@ -1,6 +1,6 @@
 export interface CustomizableChatMessage 
 {
-    id?: number,
+    id: number,
     content: string,
     date?: Date,
     isUser: boolean,

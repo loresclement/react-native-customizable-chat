@@ -1,11 +1,10 @@
-import React, { useEffect, useState, type ReactNode } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Linking, FlatList } from 'react-native';
+import React, { type ReactNode } from 'react';
+import { View, StyleSheet, FlatList, Linking } from 'react-native';
 import type { CustomizableChatMessage } from './types/Message';
 import type { ButtonProps, ImageStyle, StyleProp, ViewStyle } from 'react-native';
 import type { TextStyle } from 'react-native';
-import dayjs from 'dayjs';
-import ParsedText from 'react-native-parsed-text';
 import InputSection from './components/InputSection';
+import RenderMessage from './components/RenderMessage';
 
 interface CustomizableChatProps
 {
@@ -89,33 +88,6 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             customVideoBadge
             } = props
 
-    const ChatImage = ({ uri }: { uri: string }) => 
-    {
-        const [aspectRatio, setAspectRatio] = useState<number>(1);
-
-        useEffect(() => 
-        {
-            if (uri) {
-                Image.getSize(
-                    uri,
-                    (width, height) => {
-                        if (height !== 0) {
-                            setAspectRatio(width / height);
-                        }
-                    },
-                    error => {
-                        console.error('Error while getting the image size, ', error);
-                    }
-                );
-            }
-        }, [uri]);
-      
-        return <Image 
-                    source={{ uri }} 
-                    style={[{width: '100%', aspectRatio: aspectRatio}, imageStyle]} 
-                />;
-    };
-
     const handleUrlPress = (url: string) => 
     {
         Linking.openURL(url);
@@ -132,64 +104,37 @@ const CustomizableChat = (props: CustomizableChatProps) =>
         const mailtoUrl = `mailto:${email}`;
         Linking.openURL(mailtoUrl);
     }
-    
-    const renderMessage = (msg: CustomizableChatMessage) =>
-    {
-        return(
-            <View style={{flexDirection: msg.isUser ? 'row-reverse' : 'row', 
-                        alignItems: 'flex-end',
-                        marginLeft: (msg.isUser) ? 0 : (!hideAvatar ? 10 : 0)}}
-            >
-                {(!hideAvatar && !msg.isUser) && 
-                <Image
-                    style={{width: 30, height: 30, borderRadius: 50, resizeMode: 'stretch'}}
-                    source={msg.userAvatar ? {uri: msg.userAvatar} : require("./pictures/empty-avatar.png")}
-                />}
-                <TouchableOpacity 
-                    style={[styles.chatBox, {
-                                backgroundColor: msg.isUser ? userBubbleColor : otherUserBubbleColor, 
-                            }, bubbleContainerStyle]} 
-                    onPress={() => onMsgPress(msg)} 
-                    onLongPress={() => onLongMsgPress(msg)}
-                    activeOpacity={disableBubblePressOpacity ? 1 : 0.2}
-                >
-                    {msg.image && 
-                    <View>
-                        <ChatImage uri={msg.image}/>
-                        {msg.isVideo && 
-                        (customVideoBadge ? customVideoBadge : <Text style={styles.videoBadge}>VIDEO</Text>)}
-                    </View>}
-
-                    <ParsedText 
-                        style={[{marginTop: msg.image ? 5 : 0, color: 'black'}, bubbleTextStyle]}
-                        parse={
-                            [
-                              {type: 'url',                       style: styles.url, onPress: handleUrlPress},
-                              {type: 'phone',                     style: styles.url, onPress: handlePhonePress},
-                              {type: 'email',                     style: styles.url, onPress: handleEmailPress},
-                              {pattern: /#(\w+)/,                 style: styles.hashTag},
-                            ]
-                        }
-                        childrenProps={{allowFontScaling: false}}
-                    >
-                        {msg.content}
-                    </ParsedText>
-
-                    {!hideBubbleDate && 
-                    <Text style={[styles.dateStyle, dateTextStyle]}>{dayjs(msg.date).format(dateFormat)}</Text>}
-                </TouchableOpacity>
-            </View>
-        )
-    }
+            
 
     return (
         <View style={[styles.container, containerStyle]}>
             <FlatList
                 data={messages}
-                renderItem={({ item }) => renderMessage(item)}
+                renderItem={({ item }) => (
+                    <RenderMessage
+                        msg={item}
+                        onMsgPress={onMsgPress}
+                        onLongMsgPress={onLongMsgPress}
+                        hideAvatar={hideAvatar}
+                        userBubbleColor={userBubbleColor}
+                        otherUserBubbleColor={otherUserBubbleColor}
+                        bubbleContainerStyle={bubbleContainerStyle}
+                        disableBubblePressOpacity={disableBubblePressOpacity}
+                        styles={styles}
+                        dateFormat={dateFormat}
+                        hideBubbleDate={hideBubbleDate}
+                        imageStyle={imageStyle}
+                        customVideoBadge={customVideoBadge}
+                        bubbleTextStyle={bubbleTextStyle}
+                        dateTextStyle={dateTextStyle}
+                        handleEmailPress={handleEmailPress}
+                        handlePhonePress={handlePhonePress}
+                        handleUrlPress={handleUrlPress}
+                    />
+                )}
                 inverted
                 contentContainerStyle={{backgroundColor: backgroundColor}}
-                keyExtractor={(_item: CustomizableChatMessage, index: number) => index.toString()}
+                keyExtractor={(item: CustomizableChatMessage) => item.id.toString()}
             />
 
             <InputSection 

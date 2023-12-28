@@ -4,12 +4,12 @@ Lightweight and easy chat view for your react native chat apps
 
 ## Features 
 
--FULLY customizable. Each component is customizable and replaceable<br>
--Link in messages can be opened<br>
--Clicked messages or long pressed messages events that return the selected message<br>
--Automatic scale for images in bubble<br>
--User avatar <br>
--Fully customizable input and buttons<br>
+- 🖌 FULLY customizable. Each component is customizable and replaceable<br>
+- ⚡ PERFORMANCES ⚡️ well optimized, only new messages will render<br>
+- 🔗 Link in messages can be opened<br>
+- 👆 Clicked messages or long pressed messages events that return the selected message<br>
+- 📳 Automatic scale for images in bubble<br>
+- 😃 User avatar <br>
 
 ## Installation
 
@@ -26,10 +26,10 @@ npm install react-native-customizable-chat
 export default function App() {
   
   const messages : Array<CustomizableChatMessage> = [
-    {id: 0/*optional*/, content: "Hey!", isUser: false, date: new Date()},
-    {id: 1/*optional*/, content: "Hey how are you?", isUser: true, date: new Date()},
-    {id: 2/*optional*/, content: "Fine and you?", isUser: false, date: new Date()},
-    {id: 3/*optional*/, content: "I'm having great time!", isUser: false, date: new Date(), image: "IMAGE_URL"}
+    {id: 0, content: "Hey!", isUser: false, date: new Date()},
+    {id: 1, content: "Hey how are you?", isUser: true, date: new Date()},
+    {id: 2, content: "Fine and you?", isUser: false, date: new Date()},
+    {id: 3, content: "I'm having great time!", isUser: false, date: new Date(), image: "IMAGE_URL"}
   ]
 
   return (
@@ -97,7 +97,7 @@ This will give you :
 
 interface CustomizableChatMessage 
 {
-    id?: number,//It's recommended to implement it. Ex: if you want to delete the message on long press. You can easily remove it thanks to his id returned in the event
+    id: number,//It's recommended to implement it correctly. Ex: if you want to delete the message on long press. You can easily remove it thanks to his id returned in the event
     content: string,
     date?: Date,
     isUser: boolean,//If true the message will be aligned to the right and considered as user message
