@@ -103,6 +103,7 @@ interface CustomizableChatMessage
     isUser: boolean,//If true the message will be aligned to the right and considered as user message
     image?: string,//uri of your image (if it's a video the thumbnail will be taken as the image)
     isVideo?: boolean,//used to display the video badge on the image
+    userAvatar?: string//uri of user avatar
 }
 
 ```
