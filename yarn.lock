@@ -3385,6 +3385,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native/assets-registry@npm:~0.73.1":
+  version: 0.73.1
+  resolution: "@react-native/assets-registry@npm:0.73.1"
+  checksum: d9d09774d497bae13b1fb6a1c977bf6e442858639ee66fe4e8f955cfc903a16f79de6129471114a918a4b814eb5150bd808a5a7dc9f8b12d49795d9488d4cb67
+  languageName: node
+  linkType: hard
+
 "@react-native/codegen@npm:^0.72.7":
   version: 0.72.8
   resolution: "@react-native/codegen@npm:0.72.8"
@@ -8243,6 +8250,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-image@npm:^1.5.1":
+  version: 1.10.1
+  resolution: "expo-image@npm:1.10.1"
+  dependencies:
+    "@react-native/assets-registry": ~0.73.1
+  peerDependencies:
+    expo: "*"
+  checksum: 61b3659bd5e0004746c1fa55bad2169963853488812bfaf075527d3cda36f552fbf5ef97482e365422d431dee0287031f4712cfa8133e11e00576c18d0d7f11f
+  languageName: node
+  linkType: hard
+
 "expo-keep-awake@npm:~12.3.0":
   version: 12.3.0
   resolution: "expo-keep-awake@npm:12.3.0"
@@ -8275,6 +8293,15 @@ __metadata:
     compare-versions: ^3.4.0
     invariant: ^2.2.4
   checksum: 9f41c103fb4bba2c63776d053be6c2492b21f5dd1896b711df8877c6a8385dc86a9e59f69bb57895ec4b98a11ecfd829ff2f53f91c2d473835e82c4788f8fca5
+  languageName: node
+  linkType: hard
+
+"expo-modules-core@npm:^1.5.12":
+  version: 1.11.4
+  resolution: "expo-modules-core@npm:1.11.4"
+  dependencies:
+    invariant: ^2.2.4
+  checksum: ab433feed672706786a77820947e94317e5727cbe51b914be5c6dc773612df4e5331f641cfa5dbec3eddda18baab4f55bbf6a5685cd79f560d23bcc9bff0ff00
   languageName: node
   linkType: hard
 
@@ -14828,6 +14855,8 @@ __metadata:
     eslint: ^8.4.1
     eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.0.0
+    expo-image: ^1.5.1
+    expo-modules-core: ^1.5.12
     jest: ^28.1.1
     prettier: ^2.0.5
     react: 18.2.0

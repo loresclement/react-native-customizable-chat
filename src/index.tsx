@@ -44,7 +44,8 @@ interface CustomizableChatProps
     dividerColor?: string,
     bottomContainerStyle?: ViewStyle,
     dateTextStyle?: TextStyle,
-    customVideoBadge?: ReactNode
+    customVideoBadge?: ReactNode,
+    debug?: boolean
 }
 
 const CustomizableChat = (props: CustomizableChatProps) => 
@@ -85,7 +86,8 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             hideAvatar = false,
             noDivider = false,
             dateTextStyle,
-            customVideoBadge
+            customVideoBadge,
+            debug = true
             } = props
 
     const handleUrlPress = (url: string) => 
@@ -130,6 +132,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         handleEmailPress={handleEmailPress}
                         handlePhonePress={handlePhonePress}
                         handleUrlPress={handleUrlPress}
+                        debug={debug}
                     />
                 )}
                 inverted

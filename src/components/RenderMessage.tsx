@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 import React, { memo, useEffect, useState, type ReactNode } from 'react';
-import { Image, Text, TouchableOpacity, View, type ImageStyle, type TextStyle, type ViewStyle } from 'react-native';
+import { Text, Image as ImageRN, TouchableOpacity, View, type ImageStyle, type TextStyle, type ViewStyle } from 'react-native';
 import ParsedText from 'react-native-parsed-text';
 import type { CustomizableChatMessage } from '../types/Message';
+import { Image } from 'expo-image';
 
 interface RenderMessageProps
 {
@@ -23,12 +24,13 @@ interface RenderMessageProps
     dateTextStyle?: TextStyle, 
     handleEmailPress: (email: string) => void, 
     handlePhonePress: (phone: string) => void, 
-    handleUrlPress: (url: string) => void 
+    handleUrlPress: (url: string) => void,
+    debug: boolean
 }
 
 const RenderMessage = memo((props: RenderMessageProps) => 
 {
-    const { msg, onMsgPress, onLongMsgPress, hideAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, styles, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress } = props
+    const { msg, onMsgPress, onLongMsgPress, hideAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, styles, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true } = props
 
     const ChatImage = ({ uri }: { uri: string }) => 
     {
@@ -37,7 +39,7 @@ const RenderMessage = memo((props: RenderMessageProps) =>
         useEffect(() => 
         {
             if (uri) {
-                Image.getSize(
+                ImageRN.getSize(
                     uri,
                     (width, height) => {
                         if (height !== 0) {
@@ -45,16 +47,19 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                         }
                     },
                     error => {
-                        console.error('Error while getting the image size, ', error);
+                        if(debug) console.warn('Error while getting the image size of ' + uri + ', ' + error);
                     }
                 );
             }
+
         }, [uri]);
       
-        return <Image 
-                    source={{ uri }} 
-                    style={[{width: '100%', aspectRatio: aspectRatio}, imageStyle]} 
-                />;
+        return  <Image
+                    style={[{width: '100%', aspectRatio: aspectRatio}, imageStyle]}
+                    source={uri}
+                    contentFit="cover"
+                    transition={500}
+                />
     };
 
     return(
@@ -64,7 +69,8 @@ const RenderMessage = memo((props: RenderMessageProps) =>
         >
             {(!hideAvatar && !msg.isUser) && 
             <Image
-                style={{width: 30, height: 30, borderRadius: 50, resizeMode: 'stretch'}}
+                style={{width: 30, height: 30, borderRadius: 50}}
+                contentFit={"fill"}
                 source={msg.userAvatar ? {uri: msg.userAvatar} : require("../pictures/empty-avatar.png")}
             />}
             <TouchableOpacity 
