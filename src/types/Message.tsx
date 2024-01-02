@@ -4,6 +4,6 @@ export interface CustomizableChatMessage
     content: string,
     date?: Date,
     isUser: boolean,
-    image?: string,
+    uri?: string,
     userAvatar?: string
 }

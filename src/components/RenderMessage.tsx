@@ -138,9 +138,9 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                 onLongPress={() => onLongMsgPress(msg)}
                 activeOpacity={disableBubblePressOpacity ? 1 : 0.2}
             >
-                {msg.image && 
+                {msg.uri && 
                 <View>
-                    <ChatImage uri={msg.image}/>
+                    <ChatImage uri={msg.uri}/>
                     {(type === UriType.video && 
                             (customVideoBadge ? customVideoBadge : 
                                 <Text style={styles.videoBadge}>
@@ -159,7 +159,7 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                 </View>}
 
                 <ParsedText 
-                    style={[{marginTop: msg.image ? 5 : 0, color: 'black'}, bubbleTextStyle]}
+                    style={[{marginTop: msg.uri ? 5 : 0, color: 'black'}, bubbleTextStyle]}
                     parse={
                         [
                           {type: 'url',                       style: styles.url, onPress: handleUrlPress},
