@@ -45,7 +45,9 @@ interface CustomizableChatProps
     bottomContainerStyle?: ViewStyle,
     dateTextStyle?: TextStyle,
     customVideoBadge?: ReactNode,
-    debug?: boolean
+    debug?: boolean,
+    fileIcon?: ReactNode,
+    fileContainerStyle?: ViewStyle
 }
 
 const CustomizableChat = (props: CustomizableChatProps) => 
@@ -87,7 +89,9 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             noDivider = false,
             dateTextStyle,
             customVideoBadge,
-            debug = true
+            debug = true,
+            fileIcon,
+            fileContainerStyle
             } = props
 
     const handleUrlPress = (url: string) => 
@@ -115,6 +119,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                 renderItem={({ item }) => (
                     <RenderMessage
                         msg={item}
+                        fileIcon={fileIcon}
                         onMsgPress={onMsgPress}
                         onLongMsgPress={onLongMsgPress}
                         hideAvatar={hideAvatar}
@@ -132,6 +137,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         handleEmailPress={handleEmailPress}
                         handlePhonePress={handlePhonePress}
                         handleUrlPress={handleUrlPress}
+                        fileContainerStyle={fileContainerStyle}
                         debug={debug}
                     />
                 )}

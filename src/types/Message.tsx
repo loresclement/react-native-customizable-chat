@@ -5,6 +5,5 @@ export interface CustomizableChatMessage
     date?: Date,
     isUser: boolean,
     image?: string,
-    isVideo?: boolean,
     userAvatar?: string
 }

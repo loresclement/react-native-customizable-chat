@@ -36,6 +36,7 @@ export default function App() {
       <CustomizableChat 
         messages={messages}
         onSend={(e) => console.log(e)}
+        debug={false}
       />
   );
 }
@@ -82,6 +83,7 @@ This will give you :
                                 color={sendButtonColor} 
                                 reverse
                           />}
+        debug={false}
       />
   )
 ```
@@ -101,13 +103,11 @@ interface CustomizableChatMessage
     content: string,
     date?: Date,
     isUser: boolean,//If true the message will be aligned to the right and considered as user message
-    image?: string,//uri of your image (if it's a video the thumbnail will be taken as the image)
-    isVideo?: boolean,//used to display the video badge on the image
+    uri?: string,//uri of your image, video, gif, file... (the library will auto detect the type of the uri and show the correct badge associated to his type. For example if it's a video it will show the badge video, gif => gif badge, file => specific view)
     userAvatar?: string//uri of user avatar
 }
 
 ```
-
 ## Required props
 
 | Name | Type | Description |
@@ -151,6 +151,8 @@ interface CustomizableChatMessage
 | inputPlaceholderColor | string | Color of the placeholder of the input |
 | inputPlaceholderValue | string | Value of the placeholder of the input |
 | customVideoBadge | ReactNode | Add your own fragment to the video badge (video badge appears when the CustomizableChatMessage isVideo = true) <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-video-badge.jpg" width="80" alt="Video badge"> |
+| fileIcon | ReactNode | if it's a file, you can display an icon to explicitly warn the user that it's a file |
+| fileContainerStyle | ViewStyle | Customize the style of the file container |
 | debug | boolean | default value : true. If false no log and warning will be thrown by the package |
 
 ## Supports me

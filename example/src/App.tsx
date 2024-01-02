@@ -9,7 +9,7 @@ export default function App() {
     {id: 0, content: "Hey ! how are you ?", isUser: false, date: new Date()},
     {id: 1, content: "Fine, i'm working on my customizable chat package", isUser: true, date: new Date()},
     {id: 2, content: "Nice, I hope it will be useful", isUser: false, date: new Date()},
-    {id: 3, content: "emhh.. Imagine if it's never used", isUser: true, date: new Date(), image:"https://static-cse.canva.com/blob/1173517/giphy3.gif"},
+    {id: 3, content: "emhh.. Imagine if it's never used", isUser: true, date: new Date(), image:"https://static-cse.canva.com/blob/1173517/giphy3.gif"}
   ].reverse());
 
   const addMessage = (msg: any) => 
@@ -55,6 +55,7 @@ export default function App() {
                                 color={sendButtonColor} 
                                 reverse
                           />}
+        debug={false}
       />
   );
 }

@@ -4,6 +4,7 @@ import { Text, Image as ImageRN, TouchableOpacity, View, type ImageStyle, type T
 import ParsedText from 'react-native-parsed-text';
 import type { CustomizableChatMessage } from '../types/Message';
 import { Image } from 'expo-image';
+import { UriType } from '../types/UriType';
 
 interface RenderMessageProps
 {
@@ -25,12 +26,17 @@ interface RenderMessageProps
     handleEmailPress: (email: string) => void, 
     handlePhonePress: (phone: string) => void, 
     handleUrlPress: (url: string) => void,
-    debug: boolean
+    debug: boolean,
+    fileIcon: ReactNode,
+    fileContainerStyle?: ViewStyle
 }
 
 const RenderMessage = memo((props: RenderMessageProps) => 
 {
-    const { msg, onMsgPress, onLongMsgPress, hideAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, styles, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true } = props
+    const { msg, onMsgPress, onLongMsgPress, hideAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, styles, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true, fileIcon, fileContainerStyle } = props
+
+    const [type, settype] = useState<UriType>();
+    const [fileSize, setfileSize] = useState<number>();
 
     const ChatImage = ({ uri }: { uri: string }) => 
     {
@@ -38,7 +44,50 @@ const RenderMessage = memo((props: RenderMessageProps) =>
 
         useEffect(() => 
         {
-            if (uri) {
+            if (uri)
+            {
+                fetch(uri, {
+                    method: 'HEAD'
+                })
+                .then(response => {
+                    const contentType = response.headers.get('content-type') || "";
+                    const contentLength = response.headers.get('content-length');
+
+                    if (contentLength) 
+                    {
+                      const fileSizeInBytes = parseInt(contentLength, 10);
+                      const fileSizeInMB = fileSizeInBytes / (1024 * 1024); 
+                      setfileSize(fileSizeInMB)
+                    }
+
+                    let type
+
+                    if(contentType.startsWith('application'))
+                    {
+                        type = UriType.file
+                    }
+                    else if(contentType.startsWith('image'))
+                    {
+                        if(contentType === 'image/gif')
+                        {
+                            type = UriType.gif
+                        }
+                        else 
+                        {
+                            type = UriType.image
+                        }
+                    }
+                    else if(contentType.startsWith('video'))
+                    {
+                        type = UriType.video
+                    }
+
+                    settype(type)
+                })
+                .catch(error => {
+                    if(debug) console.warn('Error while getting Content-Type :', error);
+                });  
+
                 ImageRN.getSize(
                     uri,
                     (width, height) => {
@@ -47,19 +96,27 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                         }
                     },
                     error => {
-                        if(debug) console.warn('Error while getting the image size of ' + uri + ', ' + error);
+                        if(debug && type === "image") console.warn('Error while getting the image size of ' + uri + ', ' + error);
                     }
                 );
             }
 
         }, [uri]);
       
-        return  <Image
+        return  (<>{type === UriType.gif || type === UriType.image ? 
+                <Image
                     style={[{width: '100%', aspectRatio: aspectRatio}, imageStyle]}
                     source={uri}
                     contentFit="cover"
                     transition={500}
                 />
+                :
+                <View style={[{flexDirection: 'row', alignItems: 'center'}, fileContainerStyle]}>
+                    {fileIcon}
+                    <Text style={bubbleTextStyle}>{fileSize?.toFixed(3)} MB</Text>
+                </View>
+            }
+        </>)
     };
 
     return(
@@ -84,8 +141,21 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                 {msg.image && 
                 <View>
                     <ChatImage uri={msg.image}/>
-                    {msg.isVideo && 
-                    (customVideoBadge ? customVideoBadge : <Text style={styles.videoBadge}>VIDEO</Text>)}
+                    {(type === UriType.video && 
+                            (customVideoBadge ? customVideoBadge : 
+                                <Text style={styles.videoBadge}>
+                                    VIDEO
+                                </Text>
+                            )
+                        )
+                        ||
+                        (type === UriType.gif &&
+                            (customVideoBadge ? customVideoBadge : 
+                                <Text style={styles.videoBadge}>
+                                    GIF
+                                </Text>
+                            )
+                    )}
                 </View>}
 
                 <ParsedText 
