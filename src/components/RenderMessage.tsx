@@ -90,6 +90,11 @@ const RenderMessage = memo((props: RenderMessageProps) =>
             }
         }, [uri]);
       
+        if(type === undefined)
+        {
+            return <></>
+        }
+
         return  (<>{type === UriType.gif || type === UriType.image || type === UriType.video ? 
                 <Image
                     style={[{width: '100%', aspectRatio: aspectRatio}, imageStyle]}
