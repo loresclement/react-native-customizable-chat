@@ -2,6 +2,8 @@
 
 Lightweight and easy chat view for your react native chat apps
 
+the package is still in development, it's possible that breaking changes appear often
+
 ## Features 
 
 - 🖌 FULLY customizable. Each component is customizable and replaceable<br>
@@ -96,7 +98,6 @@ This will give you :
 
 ## Messages type
 ```js
-
 interface CustomizableChatMessage 
 {
     id: number,//It's recommended to implement it correctly. Ex: if you want to delete the message on long press. You can easily remove it thanks to his id returned in the event
@@ -106,8 +107,20 @@ interface CustomizableChatMessage
     uri?: string,//uri of your image, video, gif, file... (the library will auto detect the type of the uri and show the correct badge associated to his type. For example if it's a video it will show the badge video, gif => gif badge, file => specific view)
     userAvatar?: string//uri of user avatar
 }
-
 ```
+
+## File type 
+if a uri is specified, it will get the following metadata (you can retrieve it through filePreview prop)
+```js
+
+interface BubbleFileMetada
+{
+    size: number//in MB
+    lastModified: string | Date
+    contentType: string
+}
+```
+
 ## Required props
 
 | Name | Type | Description |
@@ -151,8 +164,7 @@ interface CustomizableChatMessage
 | inputPlaceholderColor | string | Color of the placeholder of the input |
 | inputPlaceholderValue | string | Value of the placeholder of the input |
 | customVideoBadge | ReactNode | Add your own fragment to the video badge (video badge appears when the CustomizableChatMessage isVideo = true) <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-video-badge.jpg" width="80" alt="Video badge"> |
-| fileIcon | ReactNode | if it's a file, you can display an icon to explicitly warn the user that it's a file |
-| fileContainerStyle | ViewStyle | Customize the style of the file container |
+| filePreview | function(msg: CustomizableChatMessage, fileInfos: BubbleFileMetadta) => ReactNode | Customize the node of file preview |
 | debug | boolean | default value : true. If false no log and warning will be thrown by the package |
 
 ## Supports me

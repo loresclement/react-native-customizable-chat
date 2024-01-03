@@ -5,6 +5,7 @@ import type { ButtonProps, ImageStyle, StyleProp, ViewStyle } from 'react-native
 import type { TextStyle } from 'react-native';
 import InputSection from './components/InputSection';
 import RenderMessage from './components/RenderMessage';
+import type { BubbleFileMetada } from './types/BubbleFileMetadata';
 
 interface CustomizableChatProps
 {
@@ -46,8 +47,8 @@ interface CustomizableChatProps
     dateTextStyle?: TextStyle,
     customVideoBadge?: ReactNode,
     debug?: boolean,
-    fileIcon?: ReactNode,
-    fileContainerStyle?: ViewStyle
+    filePreview?: (msg: CustomizableChatMessage, fileInfos: BubbleFileMetada) => void,
+    fileContainerStyle?: ViewStyle,
 }
 
 const CustomizableChat = (props: CustomizableChatProps) => 
@@ -90,8 +91,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             dateTextStyle,
             customVideoBadge,
             debug = true,
-            fileIcon,
-            fileContainerStyle
+            filePreview,
             } = props
 
     const handleUrlPress = (url: string) => 
@@ -111,7 +111,6 @@ const CustomizableChat = (props: CustomizableChatProps) =>
         Linking.openURL(mailtoUrl);
     }
             
-
     return (
         <View style={[styles.container, containerStyle]}>
             <FlatList
@@ -119,7 +118,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                 renderItem={({ item }) => (
                     <RenderMessage
                         msg={item}
-                        fileIcon={fileIcon}
+                        filePreview={filePreview}
                         onMsgPress={onMsgPress}
                         onLongMsgPress={onLongMsgPress}
                         hideAvatar={hideAvatar}
@@ -137,7 +136,6 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         handleEmailPress={handleEmailPress}
                         handlePhonePress={handlePhonePress}
                         handleUrlPress={handleUrlPress}
-                        fileContainerStyle={fileContainerStyle}
                         debug={debug}
                     />
                 )}
