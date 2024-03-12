@@ -57,6 +57,8 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                     const contentType = response.headers.get('content-type') || '';
                     const contentLength = response.headers.get('content-length') || '';
 
+                    if(debug) console.log(JSON.stringify(response.headers, null, 3))
+
                     setfileInfo({
                         size: parseInt(contentLength, 10) / (1024 * 1024), 
                         lastModified: response.headers.get('last-modified') || new Date(),

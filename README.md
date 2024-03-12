@@ -25,13 +25,16 @@ npm install react-native-customizable-chat
 ## Basic usage
 
 ```js
+import CustomizableChat from 'react-native-customizable-chat'
+import { CustomizableChatMessage } from 'react-native-customizable-chat/lib/typescript/src/types/Message';
+
 export default function App() {
   
   const messages : Array<CustomizableChatMessage> = [
     {id: 0, content: "Hey!", isUser: false, date: new Date()},
     {id: 1, content: "Hey how are you?", isUser: true, date: new Date()},
     {id: 2, content: "Fine and you?", isUser: false, date: new Date()},
-    {id: 3, content: "I'm having great time!", isUser: false, date: new Date(), image: "IMAGE_URL"}
+    {id: 3, content: "I'm having great time!", isUser: false, date: new Date(), uri: "IMAGE_URL"}
   ]
 
   return (

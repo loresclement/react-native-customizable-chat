@@ -55,7 +55,6 @@ export default function App() {
                                 color={sendButtonColor} 
                                 reverse
                           />}
-        debug={false}
       />
   );
 }
