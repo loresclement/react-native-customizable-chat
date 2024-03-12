@@ -1,5 +1,5 @@
 import React, { useState, type ReactNode } from 'react';
-import { View, StyleSheet, Keyboard, type ViewStyle, type TextStyle, type ButtonProps, type StyleProp, TextInput, Button, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, Keyboard, type ViewStyle, type TextStyle, type ButtonProps, type StyleProp, TextInput, Button } from 'react-native';
 
 interface InputSectionProps
 {
