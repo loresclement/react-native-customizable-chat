@@ -74,9 +74,9 @@ const InputSection = (props: InputSectionProps) =>
                 {((inputMessage.trim().length > 0 || alwaysShowSend) && !hideSendButton) && 
                 <View style={[styles.sendButton, sendButtonContainerStyle]}>
                     {customSendButton ? 
-                        <TouchableWithoutFeedback onPress={sendMessage}>
+                        <View onTouchStart={sendMessage}>
                             {customSendButton}
-                        </TouchableWithoutFeedback> 
+                        </View> 
                     : 
                     <Button 
                         title='Send'

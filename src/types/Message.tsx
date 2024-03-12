@@ -1,4 +1,4 @@
-export interface CustomizableChatMessage 
+export type CustomizableChatMessage =
 {
     id: number,
     content: string,
@@ -6,4 +6,8 @@ export interface CustomizableChatMessage
     isUser: boolean,
     uri?: string,
     userAvatar?: string
+}
+
+export type CustomizableChatInputContent = {
+    content: string
 }

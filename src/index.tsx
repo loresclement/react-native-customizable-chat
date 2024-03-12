@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 import { View, StyleSheet, FlatList, Linking } from 'react-native';
-import type { CustomizableChatMessage } from './types/Message';
+import type { CustomizableChatInputContent, CustomizableChatMessage } from './types/Message';
 import type { ButtonProps, ImageStyle, StyleProp, ViewStyle } from 'react-native';
 import type { TextStyle } from 'react-native';
 import InputSection from './components/InputSection';
@@ -10,7 +10,7 @@ import type { BubbleFileMetada } from './types/BubbleFileMetadata';
 interface CustomizableChatProps
 {
     messages: Array<CustomizableChatMessage>
-    onSend: (msg: any) => void;
+    onSend: (msg: CustomizableChatInputContent) => void;
     onMsgPress?: (msg: CustomizableChatMessage) => void,
     onLongMsgPress?: (msg: CustomizableChatMessage) => void,
     keepKeyboardOnSend?: boolean,
