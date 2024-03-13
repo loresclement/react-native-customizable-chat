@@ -23,7 +23,9 @@ interface RenderMessageProps
     imageStyle?: ImageStyle, 
     customVideoBadge: ReactNode, 
     bubbleTextStyle?: TextStyle, 
+    otherUserBubbleTextStyle?: TextStyle
     dateTextStyle?: TextStyle, 
+    otherUserDateTextStyle?: TextStyle
     handleEmailPress: (email: string) => void, 
     handlePhonePress: (phone: string) => void, 
     handleUrlPress: (url: string) => void,
@@ -33,7 +35,7 @@ interface RenderMessageProps
 
 const RenderMessage = memo((props: RenderMessageProps) => 
 {
-    const { msg, onMsgPress, onLongMsgPress, hideAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, styles, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true, filePreview } = props
+    const { msg, onMsgPress, onLongMsgPress, hideAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, styles, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true, filePreview, otherUserBubbleTextStyle, otherUserDateTextStyle } = props
 
     const [type, settype] = useState<UriType>();
 
@@ -153,7 +155,7 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                 </View>}
 
                 <ParsedText 
-                    style={[{marginTop: msg.uri ? 5 : 0, color: 'black'}, bubbleTextStyle]}
+                    style={[{marginTop: msg.uri ? 5 : 0, color: 'black'}, msg.isUser ? bubbleTextStyle : otherUserBubbleTextStyle]}
                     parse={
                         [
                           {type: 'url',                       style: styles.url, onPress: handleUrlPress},
@@ -168,7 +170,7 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                 </ParsedText>
 
                 {!hideBubbleDate && 
-                <Text style={[styles.dateStyle, dateTextStyle]}>{dayjs(msg.date).format(dateFormat)}</Text>}
+                <Text style={[styles.dateStyle, msg.isUser ? dateTextStyle : otherUserDateTextStyle]}>{dayjs(msg.date).format(dateFormat)}</Text>}
             </TouchableOpacity>
         </View>
     )

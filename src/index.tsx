@@ -26,6 +26,7 @@ interface CustomizableChatProps
     containerStyle?: ViewStyle,
     bubbleContainerStyle?: ViewStyle,
     bubbleTextStyle?: TextStyle,
+    otherUserBubbleTextStyle?: TextStyle
     sendButtonContainerStyle?: ViewStyle,
     imageStyle?: ImageStyle,
     dateFormat?: string,
@@ -45,6 +46,7 @@ interface CustomizableChatProps
     dividerColor?: string,
     bottomContainerStyle?: ViewStyle,
     dateTextStyle?: TextStyle,
+    otherUserDateTextStyle?: TextStyle
     customVideoBadge?: ReactNode,
     debug?: boolean,
     filePreview?: (msg: CustomizableChatMessage, fileInfos: BubbleFileMetada) => void,
@@ -70,6 +72,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             bottomContainerStyle,
             hideTopElement = false,
             inputTopElement = <></>,
+            otherUserDateTextStyle,
             alwaysShowSend,
             hideInput = false,
             hideSendButton,
@@ -90,6 +93,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             noDivider = false,
             dateTextStyle,
             customVideoBadge,
+            otherUserBubbleTextStyle,
             debug = true,
             filePreview,
             } = props
@@ -132,7 +136,9 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         imageStyle={imageStyle}
                         customVideoBadge={customVideoBadge}
                         bubbleTextStyle={bubbleTextStyle}
+                        otherUserBubbleTextStyle={otherUserBubbleTextStyle}
                         dateTextStyle={dateTextStyle}
+                        otherUserDateTextStyle={otherUserDateTextStyle}
                         handleEmailPress={handleEmailPress}
                         handlePhonePress={handlePhonePress}
                         handleUrlPress={handleUrlPress}
