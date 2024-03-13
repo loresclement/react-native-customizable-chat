@@ -148,8 +148,10 @@ interface BubbleFileMetada
 | sendButtonContainerStyle | ViewStyle | Customize the container of the send button |
 | dateFormat | string | dayjs format of the date, for example "DD/MM/YYYY" |
 | hideBubbleDate | boolean | If true, the date of messages won't display |
-| dateTextStyle | TextStyle | Text style of the date in bubble |
-| bubbleTextStyle | TextStyle | Customize text in chat bubble |
+| dateTextStyle | TextStyle | Text style of the date of user bubble |
+| otherUserDateTextStyle | TextStyle | Text style of the date of other user bubble |
+| bubbleTextStyle | TextStyle | Customize text in user chat bubble |
+| otherUserBubbleTextStyle | TextStyle | Customize text in other user chat bubble |
 | imageStyle | ImageStyle | Customize the style of an image in bubble |
 | customSendButton | ReactNode | Replace the default button by your own button. The onSend event is still triggered |
 | sendButtonProps | ButtonProps | Add props of the default send button |
