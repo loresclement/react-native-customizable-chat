@@ -67,7 +67,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             keepKeyboardOnSend,
             dividerColor,
             hideBubbleDate = false,
-            dateFormat = "HH:MM DD/MM/YYYY",
+            dateFormat = "HH:mm DD/MM/YYYY",
             customSendButton,
             bottomContainerStyle,
             hideTopElement = false,
