@@ -44,6 +44,8 @@ interface CustomizableChatProps
     inputStyle?: StyleProp<TextStyle>,
     inputPlaceholderColor?: string,
     dividerColor?: string,
+    seenMark?: ReactNode,
+    sentMark?: ReactNode
     bottomContainerStyle?: ViewStyle,
     dateTextStyle?: TextStyle,
     otherUserDateTextStyle?: TextStyle
@@ -62,12 +64,14 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             bubbleTextStyle,
             onSend,
             onLongMsgPress = () => {},
+            seenMark = <></>,
+            sentMark = <></>,
             containerStyle,
             sendButtonProps,
             keepKeyboardOnSend,
             dividerColor,
             hideBubbleDate = false,
-            dateFormat = "HH:mm DD/MM/YYYY",
+            dateFormat = 'HH:mm DD/MM/YYYY',
             customSendButton,
             bottomContainerStyle,
             hideTopElement = false,
@@ -81,11 +85,11 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             leftInputElement = <></>,
             hideRightInputElement = false,
             hideLeftInputElement = false,
-            otherUserBubbleColor = "lightblue",
-            userBubbleColor = "lightgray",
+            otherUserBubbleColor = 'lightblue',
+            userBubbleColor = 'lightgray',
             onMsgPress = () => {},
             disableBubblePressOpacity = false,
-            inputPlaceholderValue = "Your message...",
+            inputPlaceholderValue = 'Your message...',
             backgroundColor = 'white',
             inputStyle,
             inputPlaceholderColor,
@@ -103,7 +107,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
         Linking.openURL(url);
     }
     
-    const handlePhonePress = (phone: any) =>
+    const handlePhonePress = (phone: string) =>
     {
         const phoneLink = `tel:${phone}`;
         Linking.openURL(phoneLink);
@@ -130,7 +134,8 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         otherUserBubbleColor={otherUserBubbleColor}
                         bubbleContainerStyle={bubbleContainerStyle}
                         disableBubblePressOpacity={disableBubblePressOpacity}
-                        styles={styles}
+                        seenMark={seenMark}
+                        sentMark={sentMark}
                         dateFormat={dateFormat}
                         hideBubbleDate={hideBubbleDate}
                         imageStyle={imageStyle}
@@ -180,32 +185,6 @@ const CustomizableChat = (props: CustomizableChatProps) =>
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    chatBox:{
-        padding: 10,
-        borderRadius: 10,
-        margin: 10,
-        maxWidth: '70%'
-    },
-    dateStyle:{
-        fontSize: 12,
-        color: 'gray'
-    },
-    url: {
-        color: 'blue',
-        textDecorationLine: 'underline',
-    },
-    hashTag: {
-        fontStyle: 'italic',
-    },
-    videoBadge:{
-        position: 'absolute', 
-        top: 5, 
-        right: 5, 
-        color: 'white', 
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-        paddingHorizontal: 5,
-        borderRadius: 5
     }
 });
 

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React, { memo, useEffect, useState, type ReactNode } from 'react';
-import { Text, Image as ImageRN, TouchableOpacity, View, type ImageStyle, type TextStyle, type ViewStyle } from 'react-native';
+import { Text, Image as ImageRN, TouchableOpacity, View, type ImageStyle, type TextStyle, type ViewStyle, StyleSheet } from 'react-native';
 import ParsedText from 'react-native-parsed-text';
 import type { CustomizableChatMessage } from '../types/Message';
 import { Image } from 'expo-image';
@@ -17,7 +17,8 @@ interface RenderMessageProps
     otherUserBubbleColor: string, 
     bubbleContainerStyle?: ViewStyle, 
     disableBubblePressOpacity: boolean, 
-    styles: any, 
+    seenMark: ReactNode,
+    sentMark: ReactNode
     dateFormat: string, 
     hideBubbleDate: boolean, 
     imageStyle?: ImageStyle, 
@@ -35,7 +36,7 @@ interface RenderMessageProps
 
 const RenderMessage = memo((props: RenderMessageProps) => 
 {
-    const { msg, onMsgPress, onLongMsgPress, hideAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, styles, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true, filePreview, otherUserBubbleTextStyle, otherUserDateTextStyle } = props
+    const { msg, onMsgPress, onLongMsgPress, hideAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true, filePreview, otherUserBubbleTextStyle, otherUserDateTextStyle, seenMark, sentMark } = props
 
     const [type, settype] = useState<UriType>();
 
@@ -88,7 +89,7 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                         setAspectRatio(height !== 0 ? (width / height) : 1);
                     },
                     error => {
-                        if(debug && type === "image") console.warn('Error while getting the image size of ' + uri + ', ' + error);
+                        if(debug && type === 'image') console.warn('Error while getting the image size of ' + uri + ', ' + error);
                     }
                 );
             }
@@ -103,7 +104,7 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                 <Image
                     style={[{width: '100%', aspectRatio: aspectRatio}, imageStyle]}
                     source={uri}
-                    contentFit="cover"
+                    contentFit='cover'
                     transition={500}
                 />
                 :<>
@@ -123,8 +124,8 @@ const RenderMessage = memo((props: RenderMessageProps) =>
             {(!hideAvatar && !msg.isUser) && 
             <Image
                 style={{width: 30, height: 30, borderRadius: 50}}
-                contentFit={"fill"}
-                source={msg.userAvatar ? {uri: msg.userAvatar} : require("../pictures/empty-avatar.png")}
+                contentFit={'fill'}
+                source={msg.userAvatar ? {uri: msg.userAvatar} : require('../pictures/empty-avatar.png')}
             />}
             <TouchableOpacity 
                 style={[styles.chatBox, {
@@ -169,14 +170,62 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                     {msg.content}
                 </ParsedText>
 
-                {!hideBubbleDate && 
-                <Text style={[styles.dateStyle, msg.isUser ? dateTextStyle : otherUserDateTextStyle]}>{dayjs(msg.date).format(dateFormat)}</Text>}
+                <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
+                    {!hideBubbleDate && 
+                    <Text 
+                        style={[styles.dateStyle, msg.isUser ? dateTextStyle : otherUserDateTextStyle]}
+                    >
+                        {dayjs(msg.date).format(dateFormat)}
+                    </Text>}
+  
+                    {msg.isUser && (msg.seen ? 
+                        <>
+                            {seenMark}
+                        </>
+                        : 
+                        <>
+                            {sentMark}
+                        </>
+                    )}
+                </View>
+
             </TouchableOpacity>
         </View>
     )
 }, (prevProps, nextProps) => {
     if (prevProps.msg.id === nextProps.msg.id) return true;
     return false;
+})
+
+RenderMessage.displayName = 'RenderMessage'
+
+const styles = StyleSheet.create({
+    chatBox:{
+        padding: 10,
+        borderRadius: 10,
+        margin: 10,
+        maxWidth: '70%'
+    },
+    dateStyle:{
+        fontSize: 12,
+        color: 'gray'
+    },
+    url: {
+        color: 'blue',
+        textDecorationLine: 'underline',
+    },
+    hashTag: {
+        fontStyle: 'italic',
+    },
+    videoBadge:{
+        position: 'absolute', 
+        top: 5, 
+        right: 5, 
+        color: 'white', 
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+        paddingHorizontal: 5,
+        borderRadius: 5
+    }
 })
 
 export default RenderMessage;

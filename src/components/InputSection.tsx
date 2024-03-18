@@ -1,9 +1,10 @@
 import React, { useState, type ReactNode } from 'react';
 import { View, StyleSheet, Keyboard, type ViewStyle, type TextStyle, type ButtonProps, type StyleProp, TextInput, Button } from 'react-native';
+import type { CustomizableChatInputContent } from '../types/Message';
 
 interface InputSectionProps
 {
-    onSend: (msg: any) => void;
+    onSend: (msg: CustomizableChatInputContent) => void;
     keepKeyboardOnSend?: boolean,
     noDivider: boolean,
     alwaysShowSend?: boolean
@@ -30,13 +31,13 @@ const InputSection = (props: InputSectionProps) =>
 {
     const { onSend, keepKeyboardOnSend, hideTopElement, dividerColor, inputTopElement, bottomContainerStyle, noDivider, leftInputElement, hideLeftInputElement, hideInput, inputPlaceholderColor, inputPlaceholderValue, inputMaxLength, inputStyle, hideRightInputElement, customSendButton, alwaysShowSend, hideSendButton, rightInputElement, sendButtonProps, sendButtonContainerStyle } = props
 
-    const [inputMessage, setInputMessage] = useState<string>("");
+    const [inputMessage, setInputMessage] = useState<string>('');
 
     const sendMessage = () =>
     {
         const msg = { content: inputMessage }
         onSend(msg)
-        setInputMessage("")
+        setInputMessage('')
 
         if(!keepKeyboardOnSend)
             Keyboard.dismiss()
@@ -81,7 +82,7 @@ const InputSection = (props: InputSectionProps) =>
                     <Button 
                         title='Send'
                         onPress={sendMessage}
-                        accessibilityLabel="Send your message"
+                        accessibilityLabel='Send your message'
                         {...sendButtonProps}
                     />}
                 </View>}

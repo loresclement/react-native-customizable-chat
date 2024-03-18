@@ -108,6 +108,7 @@ interface CustomizableChatMessage
     date?: Date,
     isUser: boolean,//If true the message will be aligned to the right and considered as user message
     uri?: string,//uri of your image, video, gif, file... (the library will auto detect the type of the uri and show the correct badge associated to his type. For example if it's a video it will show the badge video, gif => gif badge, file => specific view)
+    seen?: boolean//the message is seen or not
     userAvatar?: string//uri of user avatar
 }
 ```
@@ -164,6 +165,8 @@ interface BubbleFileMetada
 | otherUserBubbleColor | string | Change the background color of the other user's bubble |
 | userBubbleColor | string | Change the background color of the user's bubble |
 | bubbleContainerStyle | ViewStyle | Customize chat bubble container |
+| sentMark | ReactNode | Custom node to display when the message is not seen |
+| seenMark | ReactNode | Custom node to display when the message is seen |
 | inputMaxLength | number | Max length of the input |
 | inputStyle | TextStyle | Customize the style of the input |
 | inputPlaceholderColor | string | Color of the placeholder of the input |

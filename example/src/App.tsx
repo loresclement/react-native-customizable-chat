@@ -1,18 +1,18 @@
 import * as React from 'react';
 import CustomizableChat from 'react-native-customizable-chat';
-import type { CustomizableChatMessage } from '../../src/types/Message';
+import type { CustomizableChatInputContent, CustomizableChatMessage } from '../../src/types/Message';
 import { Icon } from '@rneui/base';
 
 export default function App() {
   
   const [messages, setmessages] = React.useState<Array<CustomizableChatMessage>>([
-    {id: 0, content: "Hey ! how are you ?", isUser: false, date: new Date()},
-    {id: 1, content: "Fine, i'm working on my customizable chat package", isUser: true, date: new Date()},
-    {id: 2, content: "Nice, I hope it will be useful", isUser: false, date: new Date()},
-    {id: 3, content: "emhh.. Imagine if it's never used", isUser: true, date: new Date(), uri:"https://static-cse.canva.com/blob/1173517/giphy3.gif"}
+    {id: 0, content: 'Hey ! how are you ?', isUser: false, date: new Date()},
+    {id: 1, content: 'Fine, i\'m working on my customizable chat package', isUser: true, date: new Date()},
+    {id: 2, content: 'Nice, I hope it will be useful', isUser: false, date: new Date()},
+    {id: 3, content: 'emhh.. Imagine if it\'s never used', isUser: true, date: new Date(), uri:'https://static-cse.canva.com/blob/1173517/giphy3.gif'}
   ].reverse());
 
-  const addMessage = (msg: any) => 
+  const addMessage = (msg: CustomizableChatInputContent) => 
   {
     const newMsg : CustomizableChatMessage = {
       id: 4,
@@ -24,7 +24,7 @@ export default function App() {
   }
 
   const bgColor = '#17120E'
-  const textColor = "#FFE0C2"
+  const textColor = '#FFE0C2'
   const otherUserBubbleColor = '#331E0B'
   const userBubbleColor = '#562800'
   const borderColor = '#66350C'

@@ -5,6 +5,7 @@ export type CustomizableChatMessage =
     date?: Date,
     isUser: boolean,
     uri?: string,
+    seen?: boolean
     userAvatar?: string
 }
 
