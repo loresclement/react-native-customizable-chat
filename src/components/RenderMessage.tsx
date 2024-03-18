@@ -193,7 +193,13 @@ const RenderMessage = memo((props: RenderMessageProps) =>
         </View>
     )
 }, (prevProps, nextProps) => {
-    if (prevProps.msg.id === nextProps.msg.id) return true;
+    if (prevProps.msg.id === nextProps.msg.id && 
+        prevProps.msg.content === nextProps.msg.content && 
+        prevProps.msg.date === nextProps.msg.date && 
+        prevProps.msg.isUser === nextProps.msg.isUser && 
+        prevProps.msg.seen === nextProps.msg.seen && 
+        prevProps.msg.uri === nextProps.msg.uri && 
+        prevProps.msg.userAvatar === nextProps.msg.userAvatar) return true;
     return false;
 })
 
