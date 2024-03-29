@@ -119,9 +119,11 @@ const CustomizableChat = (props: CustomizableChatProps) =>
         Linking.openURL(mailtoUrl);
     }
             
-    return (
+    return (<>
+        {Platform.OS === 'ios' ? 
+        
         <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            behavior={'padding'}
             style={{flex: 1}}
         >
             <View style={[styles.container, containerStyle]}>
@@ -183,8 +185,67 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                     bottomContainerStyle={bottomContainerStyle} 
                 />
             </View>
-        </KeyboardAvoidingView>
-    );
+        </KeyboardAvoidingView> : 
+                    <View style={[styles.container, containerStyle]}>
+                    <FlatList
+                        data={messages}
+                        renderItem={({ item }) => (
+                            <RenderMessage
+                                msg={item}
+                                filePreview={filePreview}
+                                onMsgPress={onMsgPress}
+                                onLongMsgPress={onLongMsgPress}
+                                hideAvatar={hideAvatar}
+                                userBubbleColor={userBubbleColor}
+                                otherUserBubbleColor={otherUserBubbleColor}
+                                bubbleContainerStyle={bubbleContainerStyle}
+                                disableBubblePressOpacity={disableBubblePressOpacity}
+                                seenMark={seenMark}
+                                sentMark={sentMark}
+                                dateFormat={dateFormat}
+                                hideBubbleDate={hideBubbleDate}
+                                imageStyle={imageStyle}
+                                customVideoBadge={customVideoBadge}
+                                bubbleTextStyle={bubbleTextStyle}
+                                otherUserBubbleTextStyle={otherUserBubbleTextStyle}
+                                dateTextStyle={dateTextStyle}
+                                otherUserDateTextStyle={otherUserDateTextStyle}
+                                handleEmailPress={handleEmailPress}
+                                handlePhonePress={handlePhonePress}
+                                handleUrlPress={handleUrlPress}
+                                debug={debug}
+                            />
+                        )}
+                        inverted
+                        contentContainerStyle={{backgroundColor: backgroundColor}}
+                        keyExtractor={(item: CustomizableChatMessage) => item.id.toString()}
+                    />
+    
+                    <InputSection 
+                        onSend={onSend} 
+                        keepKeyboardOnSend={keepKeyboardOnSend} 
+                        noDivider={noDivider} 
+                        alwaysShowSend={alwaysShowSend} 
+                        hideSendButton={hideSendButton} 
+                        hideInput={hideInput} 
+                        hideRightInputElement={hideRightInputElement} 
+                        hideLeftInputElement={hideLeftInputElement} 
+                        sendButtonContainerStyle={sendButtonContainerStyle} 
+                        customSendButton={customSendButton} 
+                        sendButtonProps={sendButtonProps} 
+                        inputTopElement={inputTopElement} 
+                        hideTopElement={hideTopElement} 
+                        rightInputElement={rightInputElement} 
+                        leftInputElement={leftInputElement} 
+                        inputMaxLength={inputMaxLength} 
+                        inputPlaceholderValue={inputPlaceholderValue} 
+                        inputStyle={inputStyle} 
+                        inputPlaceholderColor={inputPlaceholderColor} 
+                        dividerColor={dividerColor} 
+                        bottomContainerStyle={bottomContainerStyle} 
+                    />
+                </View>}
+    </>);
 };
 
 const styles = StyleSheet.create({
