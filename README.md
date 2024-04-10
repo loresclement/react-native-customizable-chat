@@ -173,6 +173,7 @@ interface BubbleFileMetada
 | inputPlaceholderValue | string | Value of the placeholder of the input |
 | customVideoBadge | ReactNode | Add your own fragment to the video badge (video badge appears when the CustomizableChatMessage isVideo = true) <img src="https://github.com/loresclement/react-native-customizable-chat/blob/main/screenshots/fast-chat-video-badge.jpg" width="80" alt="Video badge"> |
 | filePreview | function(msg: CustomizableChatMessage, fileInfos: BubbleFileMetadta) => ReactNode | Customize the node of file preview |
+| defaultInputValue | string | default value of the input, default : '' |
 | debug | boolean | default value : true. If false no log and warning will be thrown by the package |
 
 ## Supports me

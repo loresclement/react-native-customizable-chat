@@ -7,6 +7,7 @@ interface InputSectionProps
     onSend: (msg: CustomizableChatInputContent) => void;
     keepKeyboardOnSend?: boolean,
     noDivider: boolean,
+    defaultInputValue: string
     alwaysShowSend?: boolean
     hideSendButton?: boolean,
     hideInput: boolean
@@ -29,9 +30,9 @@ interface InputSectionProps
 
 const InputSection = (props: InputSectionProps) => 
 {
-    const { onSend, keepKeyboardOnSend, hideTopElement, dividerColor, inputTopElement, bottomContainerStyle, noDivider, leftInputElement, hideLeftInputElement, hideInput, inputPlaceholderColor, inputPlaceholderValue, inputMaxLength, inputStyle, hideRightInputElement, customSendButton, alwaysShowSend, hideSendButton, rightInputElement, sendButtonProps, sendButtonContainerStyle } = props
+    const { onSend, defaultInputValue, keepKeyboardOnSend, hideTopElement, dividerColor, inputTopElement, bottomContainerStyle, noDivider, leftInputElement, hideLeftInputElement, hideInput, inputPlaceholderColor, inputPlaceholderValue, inputMaxLength, inputStyle, hideRightInputElement, customSendButton, alwaysShowSend, hideSendButton, rightInputElement, sendButtonProps, sendButtonContainerStyle } = props
 
-    const [inputMessage, setInputMessage] = useState<string>('');
+    const [inputMessage, setInputMessage] = useState<string>(defaultInputValue);
 
     const sendMessage = () =>
     {

@@ -39,6 +39,7 @@ interface CustomizableChatProps
     otherUserBubbleColor?: string
     userBubbleColor?: string,
     inputMaxLength?: number,
+    defaultInputValue?: string,
     inputPlaceholderValue?: string,
     backgroundColor?: string,
     inputStyle?: StyleProp<TextStyle>,
@@ -81,6 +82,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             hideInput = false,
             hideSendButton,
             inputMaxLength = 5000,
+            defaultInputValue = '',
             rightInputElement = <></>,
             leftInputElement = <></>,
             hideRightInputElement = false,
@@ -165,6 +167,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                     onSend={onSend} 
                     keepKeyboardOnSend={keepKeyboardOnSend} 
                     noDivider={noDivider} 
+                    defaultInputValue={defaultInputValue}
                     alwaysShowSend={alwaysShowSend} 
                     hideSendButton={hideSendButton} 
                     hideInput={hideInput} 
@@ -228,6 +231,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         alwaysShowSend={alwaysShowSend} 
                         hideSendButton={hideSendButton} 
                         hideInput={hideInput} 
+                        defaultInputValue={defaultInputValue}
                         hideRightInputElement={hideRightInputElement} 
                         hideLeftInputElement={hideLeftInputElement} 
                         sendButtonContainerStyle={sendButtonContainerStyle} 

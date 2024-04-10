@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CustomizableChat from 'react-native-customizable-chat';
-import type { CustomizableChatInputContent, CustomizableChatMessage } from '../../src/types/Message';
+import type { CustomizableChatInputContent, CustomizableChatMessage } from '../../src/types/Message'
 import { Icon } from '@rneui/base';
 
 export default function App() {
@@ -29,7 +29,7 @@ export default function App() {
   const userBubbleColor = '#562800'
   const borderColor = '#66350C'
   const sendButtonColor = '#F76B15'
-  
+
   return (
       <CustomizableChat 
         messages={messages}
