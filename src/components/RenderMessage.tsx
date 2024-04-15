@@ -2,10 +2,9 @@ import dayjs from 'dayjs';
 import React, { memo, useEffect, useState, type ReactNode } from 'react';
 import { Text, Image as ImageRN, TouchableOpacity, View, type ImageStyle, type TextStyle, type ViewStyle, StyleSheet } from 'react-native';
 import ParsedText from 'react-native-parsed-text';
-import type { CustomizableChatMessage } from '../types/Message';
+import type { CustomizableChatFile, CustomizableChatMessage } from '../types/Message';
 import { Image } from 'expo-image';
 import { UriType } from '../types/UriType';
-import type { BubbleFileMetada } from '../types/BubbleFileMetadata';
 
 interface RenderMessageProps
 {
@@ -31,7 +30,7 @@ interface RenderMessageProps
     handlePhonePress: (phone: string) => void, 
     handleUrlPress: (url: string) => void,
     debug: boolean,
-    filePreview?: (msg: CustomizableChatMessage, fileInfos: BubbleFileMetada) => void,
+    filePreview?: (msg: CustomizableChatMessage) => void,
 }
 
 const RenderMessage = memo((props: RenderMessageProps) => 
@@ -40,60 +39,37 @@ const RenderMessage = memo((props: RenderMessageProps) =>
 
     const [type, settype] = useState<UriType>();
 
-    const ChatImage = ({ uri }: { uri: string }) => 
+    const ChatImage = ({ file }: { file: CustomizableChatFile }) => 
     {
         const [aspectRatio, setAspectRatio] = useState<number>(1);
-        const [fileInfo, setfileInfo] = useState<BubbleFileMetada>({
-            size: 0,
-            lastModified: new Date(),
-            contentType: ''
-        });
 
         useEffect(() => 
         {
-            if (uri)
+            if (file)
             {
-                fetch(uri, {
-                    method: 'HEAD'
-                })
-                .then(response => {
-                    const contentType = response.headers.get('content-type') || '';
-                    const contentLength = response.headers.get('content-length') || '';
+                if(file.mimetype.startsWith('application'))
+                {
+                    settype(UriType.file)
+                }
+                else if(file.mimetype.startsWith('image'))
+                {
+                    settype(file.mimetype === 'image/gif' ? UriType.gif : UriType.image)
+                }
+                else if(file.mimetype.startsWith('video'))
+                {
+                    settype(UriType.video)
+                }
 
-                    if(debug) console.log(JSON.stringify(response.headers, null, 3))
-
-                    setfileInfo({
-                        size: parseInt(contentLength, 10) / (1024 * 1024), 
-                        lastModified: response.headers.get('last-modified') || new Date(),
-                        contentType: response.headers.get('content-type') || ''
-                    })
-
-                    if(contentType.startsWith('application'))
+                ImageRN.getSize(file.uri, (width, height) => 
                     {
-                        settype(UriType.file)
-                    }
-                    else if(contentType.startsWith('image'))
-                    {
-                        settype(contentType === 'image/gif' ? UriType.gif : UriType.image)
-                    }
-                    else if(contentType.startsWith('video'))
-                    {
-                        settype(UriType.video)
-                    }
-                })
-                .catch(error => {
-                    if(debug) console.warn('Error while getting Content-Type :', error);
-                });  
-
-                ImageRN.getSize(uri, (width, height) => {
                         setAspectRatio(height !== 0 ? (width / height) : 1);
                     },
                     error => {
-                        if(debug && type === 'image') console.warn('Error while getting the image size of ' + uri + ', ' + error);
+                        if(debug && type === 'image') console.warn('Error while getting the image size of ' + file.uri + ', ' + error);
                     }
                 );
             }
-        }, [uri]);
+        }, [file]);
       
         if(type === undefined)
         {
@@ -103,13 +79,13 @@ const RenderMessage = memo((props: RenderMessageProps) =>
         return  (<>{type === UriType.gif || type === UriType.image || type === UriType.video ? 
                 <Image
                     style={[{width: '100%', aspectRatio: aspectRatio}, imageStyle]}
-                    source={uri}
+                    source={file.uri}
                     contentFit='cover'
                     transition={500}
                 />
                 :<>
-                    {filePreview ? filePreview(msg, fileInfo) :
-                    <Text style={bubbleTextStyle}>{fileInfo?.size?.toFixed(3)} MB</Text>
+                    {filePreview ? filePreview(msg) :
+                    <>{/*<Text style={bubbleTextStyle}>{fileInfo?.size?.toFixed(3)} MB</Text>*/}</>
                     }
                 </>
             }
@@ -135,9 +111,9 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                 onLongPress={() => onLongMsgPress(msg)}
                 activeOpacity={disableBubblePressOpacity ? 1 : 0.2}
             >
-                {msg.uri && 
+                {msg.file && 
                 <View>
-                    <ChatImage uri={msg.uri}/>
+                    <ChatImage file={msg.file}/>
                     {(type === UriType.video && 
                             (customVideoBadge ? customVideoBadge : 
                                 <Text style={styles.videoBadge}>
@@ -156,7 +132,7 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                 </View>}
 
                 <ParsedText 
-                    style={[{marginTop: msg.uri ? 5 : 0, color: 'black'}, msg.isUser ? bubbleTextStyle : otherUserBubbleTextStyle]}
+                    style={[{marginTop: msg.file ? 5 : 0, color: 'black'}, msg.isUser ? bubbleTextStyle : otherUserBubbleTextStyle]}
                     parse={
                         [
                           {type: 'url',                       style: styles.url, onPress: handleUrlPress},
@@ -198,7 +174,7 @@ const RenderMessage = memo((props: RenderMessageProps) =>
         prevProps.msg.date === nextProps.msg.date && 
         prevProps.msg.isUser === nextProps.msg.isUser && 
         prevProps.msg.seen === nextProps.msg.seen && 
-        prevProps.msg.uri === nextProps.msg.uri && 
+        prevProps.msg.file === nextProps.msg.file && 
         prevProps.msg.userAvatar === nextProps.msg.userAvatar) return true;
     return false;
 })

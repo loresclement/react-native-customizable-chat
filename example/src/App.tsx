@@ -4,12 +4,13 @@ import type { CustomizableChatInputContent, CustomizableChatMessage } from '../.
 import { Icon } from '@rneui/base';
 
 export default function App() {
-  
+
   const [messages, setmessages] = React.useState<Array<CustomizableChatMessage>>([
     {id: 0, content: 'Hey ! how are you ?', isUser: false, date: new Date()},
     {id: 1, content: 'Fine, i\'m working on my customizable chat package', isUser: true, date: new Date()},
     {id: 2, content: 'Nice, I hope it will be useful', isUser: false, date: new Date()},
-    {id: 3, content: 'emhh.. Imagine if it\'s never used', isUser: true, date: new Date(), uri:'https://static-cse.canva.com/blob/1173517/giphy3.gif'}
+    {id: 3, content: 'emhh.. Imagine if it\'s never used', isUser: true, date: new Date(),
+      file: { uri:'https://static-cse.canva.com/blob/1173517/giphy3.gif', mimetype: 'image/gif' } }
   ].reverse());
 
   const addMessage = (msg: CustomizableChatInputContent) => 
@@ -37,6 +38,7 @@ export default function App() {
         noDivider
         keepKeyboardOnSend
         hideBubbleDate
+        otherUserBubbleTextStyle={{color: 'white'}}
         containerStyle={{backgroundColor: bgColor}}
         backgroundColor={bgColor}
         userBubbleColor={userBubbleColor}
@@ -49,12 +51,14 @@ export default function App() {
         otherUserBubbleColor={otherUserBubbleColor}
         bubbleTextStyle={{color: textColor}}
         inputPlaceholderColor={textColor}
-        customSendButton={<Icon name='send' 
-                                size={15} 
-                                type='material-community' 
-                                color={sendButtonColor} 
-                                reverse
-                          />}
+        customSendButton={
+          <Icon name='send' 
+                size={15} 
+                type='material-community' 
+                color={sendButtonColor} 
+                reverse
+          />
+        }
       />
   );
 }

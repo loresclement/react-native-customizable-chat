@@ -5,7 +5,6 @@ import type { ButtonProps, ImageStyle, StyleProp, ViewStyle } from 'react-native
 import type { TextStyle } from 'react-native';
 import InputSection from './components/InputSection';
 import RenderMessage from './components/RenderMessage';
-import type { BubbleFileMetada } from './types/BubbleFileMetadata';
 
 interface CustomizableChatProps
 {
@@ -52,7 +51,7 @@ interface CustomizableChatProps
     otherUserDateTextStyle?: TextStyle
     customVideoBadge?: ReactNode,
     debug?: boolean,
-    filePreview?: (msg: CustomizableChatMessage, fileInfos: BubbleFileMetada) => void,
+    filePreview?: (msg: CustomizableChatMessage) => void,
     fileContainerStyle?: ViewStyle,
 }
 

@@ -4,9 +4,14 @@ export type CustomizableChatMessage =
     content: string,
     date?: Date,
     isUser: boolean,
-    uri?: string,
+    file?: CustomizableChatFile
     seen?: boolean
     userAvatar?: string
+}
+
+export type CustomizableChatFile = {
+    uri: string,
+    mimetype: string
 }
 
 export type CustomizableChatInputContent = {
