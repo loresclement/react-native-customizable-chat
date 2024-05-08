@@ -1,10 +1,10 @@
 import * as React from 'react';
 import CustomizableChat from 'react-native-customizable-chat';
-import type { CustomizableChatInputContent, CustomizableChatMessage } from '../../src/types/Message'
 import { Icon } from '@rneui/base';
+import type { CustomizableChatInputContent, CustomizableChatMessage } from '../../src/types';
 
-export default function App() {
-
+export default function App() 
+{
   const [messages, setmessages] = React.useState<Array<CustomizableChatMessage>>([
     {id: 0, content: 'Hey ! how are you ?', isUser: false, date: new Date()},
     {id: 1, content: 'Fine, i\'m working on my customizable chat package', isUser: true, date: new Date()},

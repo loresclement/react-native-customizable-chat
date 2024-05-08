@@ -1,1 +1,5 @@
-export { MessageType } from './Message'
+export { InputSectionProps } from './InputProps'
+export { CustomizableChatMessage, CustomizableChatFile, CustomizableChatInputContent, RenderMessageProps } from './Message'
+export { UriType } from './UriType'
+export { BubbleFileMetada } from './BubbleFileMetadata'
+export { CustomizableChatProps } from './ChatProps'

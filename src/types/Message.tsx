@@ -1,3 +1,6 @@
+import type { ReactNode } from "react"
+import type { ImageStyle, TextStyle, ViewStyle } from "react-native"
+
 export type CustomizableChatMessage =
 {
     id: number,
@@ -16,4 +19,31 @@ export type CustomizableChatFile = {
 
 export type CustomizableChatInputContent = {
     content: string
+}
+
+export interface RenderMessageProps
+{
+    msg: CustomizableChatMessage
+    onMsgPress: (msg: CustomizableChatMessage) => void
+    onLongMsgPress: (msg: CustomizableChatMessage) => void 
+    hideAvatar: boolean, 
+    userBubbleColor: string, 
+    otherUserBubbleColor: string, 
+    bubbleContainerStyle?: ViewStyle, 
+    disableBubblePressOpacity: boolean, 
+    seenMark: ReactNode,
+    sentMark: ReactNode
+    dateFormat: string, 
+    hideBubbleDate: boolean, 
+    imageStyle?: ImageStyle, 
+    customVideoBadge: ReactNode, 
+    bubbleTextStyle?: TextStyle, 
+    otherUserBubbleTextStyle?: TextStyle
+    dateTextStyle?: TextStyle, 
+    otherUserDateTextStyle?: TextStyle
+    handleEmailPress: (email: string) => void, 
+    handlePhonePress: (phone: string) => void, 
+    handleUrlPress: (url: string) => void,
+    debug: boolean,
+    filePreview?: (msg: CustomizableChatMessage) => void,
 }

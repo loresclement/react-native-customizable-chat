@@ -1,32 +1,6 @@
-import React, { useState, type ReactNode } from 'react';
-import { View, StyleSheet, Keyboard, type ViewStyle, type TextStyle, type ButtonProps, type StyleProp, TextInput, Button } from 'react-native';
-import type { CustomizableChatInputContent } from '../types/Message';
-
-interface InputSectionProps
-{
-    onSend: (msg: CustomizableChatInputContent) => void;
-    keepKeyboardOnSend?: boolean,
-    noDivider: boolean,
-    defaultInputValue: string
-    alwaysShowSend?: boolean
-    hideSendButton?: boolean,
-    hideInput: boolean
-    hideRightInputElement: boolean,
-    hideLeftInputElement: boolean,
-    sendButtonContainerStyle?: ViewStyle,
-    customSendButton?: ReactNode,
-    sendButtonProps?: ButtonProps
-    inputTopElement: ReactNode,
-    hideTopElement: boolean,
-    rightInputElement: ReactNode,
-    leftInputElement: ReactNode,
-    inputMaxLength: number,
-    inputPlaceholderValue?: string,
-    inputStyle: StyleProp<TextStyle>,
-    inputPlaceholderColor?: string,
-    dividerColor?: string,
-    bottomContainerStyle?: ViewStyle,
-}
+import React, { useState } from 'react';
+import { View, StyleSheet, Keyboard, TextInput, Button } from 'react-native';
+import type { InputSectionProps } from '../types';
 
 const InputSection = (props: InputSectionProps) => 
 {
@@ -47,47 +21,47 @@ const InputSection = (props: InputSectionProps) =>
     return (<>
         {!hideTopElement && inputTopElement}
 
-            {!noDivider && 
-            <View style={{backgroundColor: dividerColor ? dividerColor : 'lightgray', marginVertical: 10, width: '100%', height: 2}}/>}
+        {!noDivider && 
+        <View style={{backgroundColor: dividerColor ? dividerColor : 'lightgray', marginVertical: 10, width: '100%', height: 2}}/>}
 
-            {!hideInput && 
-            <View style={[styles.bottomBar, bottomContainerStyle]}>
+        {!hideInput && 
+        <View style={[styles.bottomBar, bottomContainerStyle]}>
 
-                {!hideLeftInputElement && 
-                <View style={styles.leftRightInputContainer}>
-                    {leftInputElement}
-                </View>}
-
-                <TextInput
-                    value={inputMessage}
-                    onChangeText={text => setInputMessage(text)}
-                    placeholder={inputPlaceholderValue}
-                    style={[styles.messageInput, inputStyle]}
-                    multiline
-                    placeholderTextColor={inputPlaceholderColor}
-                    maxLength={inputMaxLength}
-                />
-
-                {!hideRightInputElement && 
-                <View style={styles.leftRightInputContainer}>
-                    {rightInputElement}
-                </View>}
-
-                {((inputMessage.trim().length > 0 || alwaysShowSend) && !hideSendButton) && 
-                <View style={[styles.sendButton, sendButtonContainerStyle]}>
-                    {customSendButton ? 
-                        <View onTouchStart={sendMessage}>
-                            {customSendButton}
-                        </View> 
-                    : 
-                    <Button 
-                        title='Send'
-                        onPress={sendMessage}
-                        accessibilityLabel='Send your message'
-                        {...sendButtonProps}
-                    />}
-                </View>}
+            {!hideLeftInputElement && 
+            <View style={styles.leftRightInputContainer}>
+                {leftInputElement}
             </View>}
+
+            <TextInput
+                value={inputMessage}
+                onChangeText={text => setInputMessage(text)}
+                placeholder={inputPlaceholderValue}
+                style={[styles.messageInput, inputStyle]}
+                multiline
+                placeholderTextColor={inputPlaceholderColor}
+                maxLength={inputMaxLength}
+            />
+
+            {!hideRightInputElement && 
+            <View style={styles.leftRightInputContainer}>
+                {rightInputElement}
+            </View>}
+
+            {((inputMessage.trim().length > 0 || alwaysShowSend) && !hideSendButton) && 
+            <View style={[styles.sendButton, sendButtonContainerStyle]}>
+                {customSendButton ? 
+                    <View onTouchStart={sendMessage}>
+                        {customSendButton}
+                    </View> 
+                : 
+                <Button 
+                    title='Send'
+                    onPress={sendMessage}
+                    accessibilityLabel='Send your message'
+                    {...sendButtonProps}
+                />}
+            </View>}
+        </View>}
     </>);
 };
 

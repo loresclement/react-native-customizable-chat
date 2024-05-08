@@ -1,37 +1,10 @@
 import dayjs from 'dayjs';
-import React, { memo, useEffect, useState, type ReactNode } from 'react';
-import { Text, Image as ImageRN, TouchableOpacity, View, type ImageStyle, type TextStyle, type ViewStyle, StyleSheet } from 'react-native';
+import React, { memo, useEffect, useState } from 'react';
+import { Text, Image as ImageRN, TouchableOpacity, View, StyleSheet } from 'react-native';
 import ParsedText from 'react-native-parsed-text';
-import type { CustomizableChatFile, CustomizableChatMessage } from '../types/Message';
+import type { CustomizableChatFile, RenderMessageProps } from '../types/Message';
 import { Image } from 'expo-image';
 import { UriType } from '../types/UriType';
-
-interface RenderMessageProps
-{
-    msg: CustomizableChatMessage
-    onMsgPress: (msg: CustomizableChatMessage) => void
-    onLongMsgPress: (msg: CustomizableChatMessage) => void 
-    hideAvatar: boolean, 
-    userBubbleColor: string, 
-    otherUserBubbleColor: string, 
-    bubbleContainerStyle?: ViewStyle, 
-    disableBubblePressOpacity: boolean, 
-    seenMark: ReactNode,
-    sentMark: ReactNode
-    dateFormat: string, 
-    hideBubbleDate: boolean, 
-    imageStyle?: ImageStyle, 
-    customVideoBadge: ReactNode, 
-    bubbleTextStyle?: TextStyle, 
-    otherUserBubbleTextStyle?: TextStyle
-    dateTextStyle?: TextStyle, 
-    otherUserDateTextStyle?: TextStyle
-    handleEmailPress: (email: string) => void, 
-    handlePhonePress: (phone: string) => void, 
-    handleUrlPress: (url: string) => void,
-    debug: boolean,
-    filePreview?: (msg: CustomizableChatMessage) => void,
-}
 
 const RenderMessage = memo((props: RenderMessageProps) => 
 {
@@ -164,7 +137,6 @@ const RenderMessage = memo((props: RenderMessageProps) =>
                         </>
                     )}
                 </View>
-
             </TouchableOpacity>
         </View>
     )

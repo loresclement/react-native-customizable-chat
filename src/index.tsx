@@ -1,59 +1,8 @@
-import React, { type ReactNode } from 'react';
+import React from 'react';
 import { View, StyleSheet, FlatList, Linking, KeyboardAvoidingView, Platform } from 'react-native';
-import type { CustomizableChatInputContent, CustomizableChatMessage } from './types/Message';
-import type { ButtonProps, ImageStyle, StyleProp, ViewStyle } from 'react-native';
-import type { TextStyle } from 'react-native';
 import InputSection from './components/InputSection';
 import RenderMessage from './components/RenderMessage';
-
-interface CustomizableChatProps
-{
-    messages: Array<CustomizableChatMessage>
-    onSend: (msg: CustomizableChatInputContent) => void;
-    onMsgPress?: (msg: CustomizableChatMessage) => void,
-    onLongMsgPress?: (msg: CustomizableChatMessage) => void,
-    keepKeyboardOnSend?: boolean,
-    hideBubbleDate?: boolean,
-    hideAvatar?: boolean,
-    noDivider?: boolean,
-    alwaysShowSend?: boolean
-    hideSendButton?: boolean,
-    hideInput?: boolean
-    hideRightInputElement?: boolean,
-    hideLeftInputElement?: boolean,
-    disableBubblePressOpacity?: boolean;
-    containerStyle?: ViewStyle,
-    bubbleContainerStyle?: ViewStyle,
-    bubbleTextStyle?: TextStyle,
-    otherUserBubbleTextStyle?: TextStyle
-    sendButtonContainerStyle?: ViewStyle,
-    imageStyle?: ImageStyle,
-    dateFormat?: string,
-    customSendButton?: ReactNode,
-    sendButtonProps?: ButtonProps
-    inputTopElement?: ReactNode,
-    hideTopElement?: boolean,
-    rightInputElement?: ReactNode,
-    leftInputElement?: ReactNode,
-    otherUserBubbleColor?: string
-    userBubbleColor?: string,
-    inputMaxLength?: number,
-    defaultInputValue?: string,
-    inputPlaceholderValue?: string,
-    backgroundColor?: string,
-    inputStyle?: StyleProp<TextStyle>,
-    inputPlaceholderColor?: string,
-    dividerColor?: string,
-    seenMark?: ReactNode,
-    sentMark?: ReactNode
-    bottomContainerStyle?: ViewStyle,
-    dateTextStyle?: TextStyle,
-    otherUserDateTextStyle?: TextStyle
-    customVideoBadge?: ReactNode,
-    debug?: boolean,
-    filePreview?: (msg: CustomizableChatMessage) => void,
-    fileContainerStyle?: ViewStyle,
-}
+import type { CustomizableChatMessage, CustomizableChatProps } from './types';
 
 const CustomizableChat = (props: CustomizableChatProps) => 
 {
@@ -188,66 +137,66 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                 />
             </View>
         </KeyboardAvoidingView> : 
-                    <View style={[styles.container, containerStyle]}>
-                    <FlatList
-                        data={messages}
-                        renderItem={({ item }) => (
-                            <RenderMessage
-                                msg={item}
-                                filePreview={filePreview}
-                                onMsgPress={onMsgPress}
-                                onLongMsgPress={onLongMsgPress}
-                                hideAvatar={hideAvatar}
-                                userBubbleColor={userBubbleColor}
-                                otherUserBubbleColor={otherUserBubbleColor}
-                                bubbleContainerStyle={bubbleContainerStyle}
-                                disableBubblePressOpacity={disableBubblePressOpacity}
-                                seenMark={seenMark}
-                                sentMark={sentMark}
-                                dateFormat={dateFormat}
-                                hideBubbleDate={hideBubbleDate}
-                                imageStyle={imageStyle}
-                                customVideoBadge={customVideoBadge}
-                                bubbleTextStyle={bubbleTextStyle}
-                                otherUserBubbleTextStyle={otherUserBubbleTextStyle}
-                                dateTextStyle={dateTextStyle}
-                                otherUserDateTextStyle={otherUserDateTextStyle}
-                                handleEmailPress={handleEmailPress}
-                                handlePhonePress={handlePhonePress}
-                                handleUrlPress={handleUrlPress}
-                                debug={debug}
-                            />
-                        )}
-                        inverted
-                        contentContainerStyle={{backgroundColor: backgroundColor}}
-                        keyExtractor={(item: CustomizableChatMessage) => item.id.toString()}
+        <View style={[styles.container, containerStyle]}>
+            <FlatList
+                data={messages}
+                renderItem={({ item }) => (
+                    <RenderMessage
+                        msg={item}
+                        filePreview={filePreview}
+                        onMsgPress={onMsgPress}
+                        onLongMsgPress={onLongMsgPress}
+                        hideAvatar={hideAvatar}
+                        userBubbleColor={userBubbleColor}
+                        otherUserBubbleColor={otherUserBubbleColor}
+                        bubbleContainerStyle={bubbleContainerStyle}
+                        disableBubblePressOpacity={disableBubblePressOpacity}
+                        seenMark={seenMark}
+                        sentMark={sentMark}
+                        dateFormat={dateFormat}
+                        hideBubbleDate={hideBubbleDate}
+                        imageStyle={imageStyle}
+                        customVideoBadge={customVideoBadge}
+                        bubbleTextStyle={bubbleTextStyle}
+                        otherUserBubbleTextStyle={otherUserBubbleTextStyle}
+                        dateTextStyle={dateTextStyle}
+                        otherUserDateTextStyle={otherUserDateTextStyle}
+                        handleEmailPress={handleEmailPress}
+                        handlePhonePress={handlePhonePress}
+                        handleUrlPress={handleUrlPress}
+                        debug={debug}
                     />
-    
-                    <InputSection 
-                        onSend={onSend} 
-                        keepKeyboardOnSend={keepKeyboardOnSend} 
-                        noDivider={noDivider} 
-                        alwaysShowSend={alwaysShowSend} 
-                        hideSendButton={hideSendButton} 
-                        hideInput={hideInput} 
-                        defaultInputValue={defaultInputValue}
-                        hideRightInputElement={hideRightInputElement} 
-                        hideLeftInputElement={hideLeftInputElement} 
-                        sendButtonContainerStyle={sendButtonContainerStyle} 
-                        customSendButton={customSendButton} 
-                        sendButtonProps={sendButtonProps} 
-                        inputTopElement={inputTopElement} 
-                        hideTopElement={hideTopElement} 
-                        rightInputElement={rightInputElement} 
-                        leftInputElement={leftInputElement} 
-                        inputMaxLength={inputMaxLength} 
-                        inputPlaceholderValue={inputPlaceholderValue} 
-                        inputStyle={inputStyle} 
-                        inputPlaceholderColor={inputPlaceholderColor} 
-                        dividerColor={dividerColor} 
-                        bottomContainerStyle={bottomContainerStyle} 
-                    />
-                </View>}
+                )}
+                inverted
+                contentContainerStyle={{backgroundColor: backgroundColor}}
+                keyExtractor={(item: CustomizableChatMessage) => item.id.toString()}
+            />
+
+            <InputSection 
+                onSend={onSend} 
+                keepKeyboardOnSend={keepKeyboardOnSend} 
+                noDivider={noDivider} 
+                alwaysShowSend={alwaysShowSend} 
+                hideSendButton={hideSendButton} 
+                hideInput={hideInput} 
+                defaultInputValue={defaultInputValue}
+                hideRightInputElement={hideRightInputElement} 
+                hideLeftInputElement={hideLeftInputElement} 
+                sendButtonContainerStyle={sendButtonContainerStyle} 
+                customSendButton={customSendButton} 
+                sendButtonProps={sendButtonProps} 
+                inputTopElement={inputTopElement} 
+                hideTopElement={hideTopElement} 
+                rightInputElement={rightInputElement} 
+                leftInputElement={leftInputElement} 
+                inputMaxLength={inputMaxLength} 
+                inputPlaceholderValue={inputPlaceholderValue} 
+                inputStyle={inputStyle} 
+                inputPlaceholderColor={inputPlaceholderColor} 
+                dividerColor={dividerColor} 
+                bottomContainerStyle={bottomContainerStyle} 
+            />
+        </View>}
     </>);
 };
 
