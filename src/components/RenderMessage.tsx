@@ -70,7 +70,7 @@ const RenderMessage = memo((props: RenderMessageProps) =>
             style={{
                 flexDirection: msg.isUser ? 'row-reverse' : 'row', 
                 alignItems: 'flex-end',
-                marginLeft: (msg.isUser) ? 0 : (!hideOtherUserAvatar ? 10 : 0)
+                marginLeft: (msg.isUser) ? 0 : (!hideOtherUserAvatar ? 10 : 0),
             }}
         >
             {(!hideOtherUserAvatar && !msg.isUser) && 
@@ -82,7 +82,12 @@ const RenderMessage = memo((props: RenderMessageProps) =>
             }
             {(!hideUserAvatar && msg.isUser) && 
                 <Image
-                    style={{width: 30, height: 30, borderRadius: 50}}
+                    style={{
+                        width: 30, 
+                        height: 30, 
+                        borderRadius: 50,
+                        marginRight: 10
+                    }}
                     contentFit={'fill'}
                     source={msg.userAvatar ? {uri: msg.userAvatar} : require('../pictures/empty-avatar.png')}
                 />

@@ -69,79 +69,13 @@ const CustomizableChat = (props: CustomizableChatProps) =>
         const mailtoUrl = `mailto:${email}`;
         Linking.openURL(mailtoUrl);
     }
-            
-    return (<>
-        {Platform.OS === 'ios' ? 
-        
-        <KeyboardAvoidingView
-            behavior={'padding'}
-            style={{flex: 1}}
-        >
-            <View style={[styles.container, containerStyle]}>
-                <FlatList
-                    data={messages}
-                    renderItem={({ item }) => (
-                        <RenderMessage
-                            msg={item}
-                            filePreview={filePreview}
-                            onMsgPress={onMsgPress}
-                            onLongMsgPress={onLongMsgPress}
-                            hideOtherUserAvatar={hideOtherUserAvatar}
-                            userBubbleColor={userBubbleColor}
-                            otherUserBubbleColor={otherUserBubbleColor}
-                            bubbleContainerStyle={bubbleContainerStyle}
-                            disableBubblePressOpacity={disableBubblePressOpacity}
-                            seenMark={seenMark}
-                            sentMark={sentMark}
-                            dateFormat={dateFormat}
-                            hideBubbleDate={hideBubbleDate}
-                            imageStyle={imageStyle}
-                            customVideoBadge={customVideoBadge}
-                            bubbleTextStyle={bubbleTextStyle}
-                            otherUserBubbleTextStyle={otherUserBubbleTextStyle}
-                            dateTextStyle={dateTextStyle}
-                            otherUserDateTextStyle={otherUserDateTextStyle}
-                            handleEmailPress={handleEmailPress}
-                            handlePhonePress={handlePhonePress}
-                            handleUrlPress={handleUrlPress}
-                            debug={debug}
-                            hideUserAvatar={hideUserAvatar}
-                        />
-                    )}
-                    inverted
-                    contentContainerStyle={{backgroundColor: backgroundColor}}
-                    keyExtractor={(item: CustomizableChatMessage) => item.id.toString()}
-                />
 
-                <InputSection 
-                    onSend={onSend} 
-                    keepKeyboardOnSend={keepKeyboardOnSend} 
-                    noDivider={noDivider} 
-                    defaultInputValue={defaultInputValue}
-                    alwaysShowSend={alwaysShowSend} 
-                    hideSendButton={hideSendButton} 
-                    hideInput={hideInput} 
-                    hideRightInputElement={hideRightInputElement} 
-                    hideLeftInputElement={hideLeftInputElement} 
-                    sendButtonContainerStyle={sendButtonContainerStyle} 
-                    customSendButton={customSendButton} 
-                    sendButtonProps={sendButtonProps} 
-                    inputTopElement={inputTopElement} 
-                    hideTopElement={hideTopElement} 
-                    rightInputElement={rightInputElement} 
-                    leftInputElement={leftInputElement} 
-                    inputMaxLength={inputMaxLength} 
-                    inputPlaceholderValue={inputPlaceholderValue} 
-                    inputStyle={inputStyle} 
-                    inputPlaceholderColor={inputPlaceholderColor} 
-                    dividerColor={dividerColor} 
-                    bottomContainerStyle={bottomContainerStyle} 
-                />
-            </View>
-        </KeyboardAvoidingView> : 
-        <View style={[styles.container, containerStyle]}>
+    const MessagesList = () => 
+    {
+        return(
             <FlatList
                 data={messages}
+                showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
                     <RenderMessage
                         msg={item}
@@ -166,23 +100,28 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         handleEmailPress={handleEmailPress}
                         handlePhonePress={handlePhonePress}
                         handleUrlPress={handleUrlPress}
-                        debug={debug} 
-                        hideUserAvatar={hideUserAvatar}                    
+                        debug={debug}
+                        hideUserAvatar={hideUserAvatar}
                     />
                 )}
                 inverted
                 contentContainerStyle={{backgroundColor: backgroundColor}}
                 keyExtractor={(item: CustomizableChatMessage) => item.id.toString()}
             />
+        )
+    }
 
+    const InputSectionComponent = () => 
+    {
+        return(
             <InputSection 
                 onSend={onSend} 
                 keepKeyboardOnSend={keepKeyboardOnSend} 
                 noDivider={noDivider} 
+                defaultInputValue={defaultInputValue}
                 alwaysShowSend={alwaysShowSend} 
                 hideSendButton={hideSendButton} 
                 hideInput={hideInput} 
-                defaultInputValue={defaultInputValue}
                 hideRightInputElement={hideRightInputElement} 
                 hideLeftInputElement={hideLeftInputElement} 
                 sendButtonContainerStyle={sendButtonContainerStyle} 
@@ -199,6 +138,24 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                 dividerColor={dividerColor} 
                 bottomContainerStyle={bottomContainerStyle} 
             />
+        )
+    }
+            
+    return (<>
+        {Platform.OS === 'ios' ? 
+        
+        <KeyboardAvoidingView
+            behavior={'padding'}
+            style={{flex: 1}}
+        >
+            <View style={[styles.container, containerStyle]}>
+                <MessagesList/>
+                <InputSectionComponent/>
+            </View>
+        </KeyboardAvoidingView> : 
+        <View style={[styles.container, containerStyle]}>
+            <MessagesList/>
+            <InputSectionComponent/>
         </View>}
     </>);
 };
