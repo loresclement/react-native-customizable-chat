@@ -8,7 +8,7 @@ import { UriType } from '../types/UriType';
 
 const RenderMessage = memo((props: RenderMessageProps) => 
 {
-    const { msg, onMsgPress, onLongMsgPress, hideAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true, filePreview, otherUserBubbleTextStyle, otherUserDateTextStyle, seenMark, sentMark } = props
+    const { msg, onMsgPress, onLongMsgPress, hideUserAvatar, hideOtherUserAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true, filePreview, otherUserBubbleTextStyle, otherUserDateTextStyle, seenMark, sentMark } = props
 
     const [type, settype] = useState<UriType>();
 
@@ -66,20 +66,37 @@ const RenderMessage = memo((props: RenderMessageProps) =>
     };
 
     return(
-        <View style={{flexDirection: msg.isUser ? 'row-reverse' : 'row', 
-                    alignItems: 'flex-end',
-                    marginLeft: (msg.isUser) ? 0 : (!hideAvatar ? 10 : 0)}}
+        <View 
+            style={{
+                flexDirection: msg.isUser ? 'row-reverse' : 'row', 
+                alignItems: 'flex-end',
+                marginLeft: (msg.isUser) ? 0 : (!hideOtherUserAvatar ? 10 : 0)
+            }}
         >
-            {(!hideAvatar && !msg.isUser) && 
-            <Image
-                style={{width: 30, height: 30, borderRadius: 50}}
-                contentFit={'fill'}
-                source={msg.userAvatar ? {uri: msg.userAvatar} : require('../pictures/empty-avatar.png')}
-            />}
+            {(!hideOtherUserAvatar && !msg.isUser) && 
+                <Image
+                    style={{width: 30, height: 30, borderRadius: 50}}
+                    contentFit={'fill'}
+                    source={msg.userAvatar ? {uri: msg.userAvatar} : require('../pictures/empty-avatar.png')}
+                />
+            }
+            {(!hideUserAvatar && msg.isUser) && 
+                <Image
+                    style={{width: 30, height: 30, borderRadius: 50}}
+                    contentFit={'fill'}
+                    source={msg.userAvatar ? {uri: msg.userAvatar} : require('../pictures/empty-avatar.png')}
+                />
+            }
             <TouchableOpacity 
-                style={[styles.chatBox, {
+                style={
+                    [
+                        styles.chatBox, 
+                        {
                             backgroundColor: msg.isUser ? userBubbleColor : otherUserBubbleColor, 
-                        }, bubbleContainerStyle]} 
+                        }, 
+                        bubbleContainerStyle
+                    ]
+                } 
                 onPress={() => onMsgPress(msg)} 
                 onLongPress={() => onLongMsgPress(msg)}
                 activeOpacity={disableBubblePressOpacity ? 1 : 0.2}

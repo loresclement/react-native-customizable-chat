@@ -43,7 +43,8 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             backgroundColor = 'white',
             inputStyle,
             inputPlaceholderColor,
-            hideAvatar = false,
+            hideOtherUserAvatar = false,
+            hideUserAvatar = false,
             noDivider = false,
             dateTextStyle,
             customVideoBadge,
@@ -85,7 +86,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                             filePreview={filePreview}
                             onMsgPress={onMsgPress}
                             onLongMsgPress={onLongMsgPress}
-                            hideAvatar={hideAvatar}
+                            hideOtherUserAvatar={hideOtherUserAvatar}
                             userBubbleColor={userBubbleColor}
                             otherUserBubbleColor={otherUserBubbleColor}
                             bubbleContainerStyle={bubbleContainerStyle}
@@ -104,6 +105,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                             handlePhonePress={handlePhonePress}
                             handleUrlPress={handleUrlPress}
                             debug={debug}
+                            hideUserAvatar={hideUserAvatar}
                         />
                     )}
                     inverted
@@ -146,7 +148,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         filePreview={filePreview}
                         onMsgPress={onMsgPress}
                         onLongMsgPress={onLongMsgPress}
-                        hideAvatar={hideAvatar}
+                        hideOtherUserAvatar={hideOtherUserAvatar}
                         userBubbleColor={userBubbleColor}
                         otherUserBubbleColor={otherUserBubbleColor}
                         bubbleContainerStyle={bubbleContainerStyle}
@@ -164,7 +166,8 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         handleEmailPress={handleEmailPress}
                         handlePhonePress={handlePhonePress}
                         handleUrlPress={handleUrlPress}
-                        debug={debug}
+                        debug={debug} 
+                        hideUserAvatar={hideUserAvatar}                    
                     />
                 )}
                 inverted

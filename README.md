@@ -143,7 +143,8 @@ interface BubbleFileMetada
 | backgroundColor | string | Color of the chat background |
 | containerStyle | ViewStyle | Customize the style of the whole chat container |
 | bottomContainerStyle | ViewStyle | Customize the container of the input and send button |
-| hideAvatar | boolean | Default : false, if false the avatar of the bubble won't display |
+| hideOtherUserAvatar | boolean | Default : false, if false the avatar of the other user bubble won't display |
+| hideUserAvatar | boolean | Default : false, if false the avatar of the user bubble won't display |
 | hideSendButton | boolean | If true the send button won't display |
 | alwaysShowSend | boolean | By default the send button will display only if input is not empty. Setting this to true will always display the send button |
 | sendButtonContainerStyle | ViewStyle | Customize the container of the send button |

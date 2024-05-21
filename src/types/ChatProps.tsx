@@ -10,7 +10,8 @@ export interface CustomizableChatProps
     onLongMsgPress?: (msg: CustomizableChatMessage) => void,
     keepKeyboardOnSend?: boolean,
     hideBubbleDate?: boolean,
-    hideAvatar?: boolean,
+    hideOtherUserAvatar?: boolean,
+    hideUserAvatar?: boolean
     noDivider?: boolean,
     alwaysShowSend?: boolean
     hideSendButton?: boolean,
