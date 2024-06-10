@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React, { memo, useEffect, useState } from 'react';
-import { Text, Image as ImageRN, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { Text, Image as ImageRN, TouchableOpacity, View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import ParsedText from 'react-native-parsed-text';
 import type { CustomizableChatFile, RenderMessageProps } from '../types/Message';
 import { Image } from 'expo-image';
@@ -8,7 +8,7 @@ import { UriType } from '../types/UriType';
 
 const RenderMessage = memo((props: RenderMessageProps) => 
 {
-    const { msg, onMsgPress, onLongMsgPress, hideUserAvatar, hideOtherUserAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true, filePreview, otherUserBubbleTextStyle, otherUserDateTextStyle, seenMark, sentMark } = props
+    const { msg, onMsgPress, onLongMsgPress, hideUserAvatar, hideOtherUserAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true, filePreview, otherUserBubbleTextStyle, otherUserDateTextStyle, seenMark, sentMark, onAvatarPress } = props
 
     const [type, settype] = useState<UriType>();
 
@@ -74,23 +74,27 @@ const RenderMessage = memo((props: RenderMessageProps) =>
             }}
         >
             {(!hideOtherUserAvatar && !msg.isUser) && 
-                <Image
-                    style={{width: 30, height: 30, borderRadius: 50}}
-                    contentFit={'fill'}
-                    source={msg.userAvatar ? {uri: msg.userAvatar} : require('../pictures/empty-avatar.png')}
-                />
+                <TouchableWithoutFeedback onPress={() => onAvatarPress(msg)}>
+                    <Image
+                        style={{width: 30, height: 30, borderRadius: 50}}
+                        contentFit={'fill'}
+                        source={msg.userAvatar ? {uri: msg.userAvatar} : require('../pictures/empty-avatar.png')}
+                    />
+                </TouchableWithoutFeedback>
             }
             {(!hideUserAvatar && msg.isUser) && 
-                <Image
-                    style={{
-                        width: 30, 
-                        height: 30, 
-                        borderRadius: 50,
-                        marginRight: 10
-                    }}
-                    contentFit={'fill'}
-                    source={msg.userAvatar ? {uri: msg.userAvatar} : require('../pictures/empty-avatar.png')}
-                />
+                <TouchableWithoutFeedback onPress={() => onAvatarPress(msg)}>
+                    <Image
+                        style={{
+                            width: 30, 
+                            height: 30, 
+                            borderRadius: 50,
+                            marginRight: 10
+                        }}
+                        contentFit={'fill'}
+                        source={msg.userAvatar ? {uri: msg.userAvatar} : require('../pictures/empty-avatar.png')}
+                    />
+                </TouchableWithoutFeedback>
             }
             <TouchableOpacity 
                 style={

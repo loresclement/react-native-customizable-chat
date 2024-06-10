@@ -42,6 +42,7 @@ const CustomizableChat = (props: CustomizableChatProps) =>
             inputPlaceholderValue = 'Your message...',
             backgroundColor = 'white',
             inputStyle,
+            onAvatarPress = () => {},
             inputPlaceholderColor,
             hideOtherUserAvatar = false,
             hideUserAvatar = false,
@@ -101,7 +102,8 @@ const CustomizableChat = (props: CustomizableChatProps) =>
                         handlePhonePress={handlePhonePress}
                         handleUrlPress={handleUrlPress}
                         debug={debug}
-                        hideUserAvatar={hideUserAvatar}
+                        hideUserAvatar={hideUserAvatar} 
+                        onAvatarPress={onAvatarPress}
                     />
                 )}
                 inverted

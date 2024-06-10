@@ -143,6 +143,7 @@ interface BubbleFileMetada
 | backgroundColor | string | Color of the chat background |
 | containerStyle | ViewStyle | Customize the style of the whole chat container |
 | bottomContainerStyle | ViewStyle | Customize the container of the input and send button |
+| onAvatarPress | function | if user press an avatar, message datas are returned |
 | hideOtherUserAvatar | boolean | Default : false, if false the avatar of the other user bubble won't display |
 | hideUserAvatar | boolean | Default : false, if false the avatar of the user bubble won't display |
 | hideSendButton | boolean | If true the send button won't display |

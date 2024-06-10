@@ -26,6 +26,7 @@ export interface RenderMessageProps
     msg: CustomizableChatMessage
     onMsgPress: (msg: CustomizableChatMessage) => void
     onLongMsgPress: (msg: CustomizableChatMessage) => void 
+    onAvatarPress: (msg: CustomizableChatMessage) => void
     hideOtherUserAvatar: boolean, 
     hideUserAvatar: boolean,
     userBubbleColor: string, 

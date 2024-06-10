@@ -8,6 +8,7 @@ export interface CustomizableChatProps
     onSend: (msg: CustomizableChatInputContent) => void;
     onMsgPress?: (msg: CustomizableChatMessage) => void,
     onLongMsgPress?: (msg: CustomizableChatMessage) => void,
+    onAvatarPress?: (msg: CustomizableChatMessage) => void
     keepKeyboardOnSend?: boolean,
     hideBubbleDate?: boolean,
     hideOtherUserAvatar?: boolean,
