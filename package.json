@@ -1,6 +1,6 @@
 {
   "name": "react-native-customizable-chat",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Lightweight and easy chat view for your react native chat apps",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -166,7 +166,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.10",
-    "expo-image": "^1.5.1",
+    "expo-image": ">=1.5.1",
     "expo-modules-core": "^1.5.12",
     "react-native-parsed-text": "^0.0.22"
   }
