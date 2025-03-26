@@ -9,7 +9,6 @@ import { UriType } from '../types/UriType';
 const RenderMessage = memo((props: RenderMessageProps) => 
 {
     const { msg, onMsgPress, onLongMsgPress, hideUserAvatar, hideOtherUserAvatar, userBubbleColor, otherUserBubbleColor, bubbleContainerStyle, disableBubblePressOpacity, dateFormat, hideBubbleDate, imageStyle, customVideoBadge, bubbleTextStyle, dateTextStyle, handleEmailPress, handlePhonePress, handleUrlPress, debug = true, filePreview, otherUserBubbleTextStyle, otherUserDateTextStyle, seenMark, sentMark, onAvatarPress } = props
-
     const [type, settype] = useState<UriType>();
 
     const ChatImage = ({ file }: { file: CustomizableChatFile }) => 
@@ -50,12 +49,11 @@ const RenderMessage = memo((props: RenderMessageProps) =>
         }
 
         return  (<>{type === UriType.gif || type === UriType.image || type === UriType.video ? 
-                <Image
-                    style={[{width: '100%', aspectRatio: aspectRatio}, imageStyle]}
-                    source={file.uri}
-                    contentFit='cover'
-                    transition={500}
-                />
+                    <ImageRN
+                        style={[{width: '100%', aspectRatio: aspectRatio}, imageStyle]}
+                        source={{uri: file.uri}}
+                        resizeMode='cover'
+                    />
                 :<>
                     {filePreview ? filePreview(msg) :
                     <>{/*<Text style={bubbleTextStyle}>{fileInfo?.size?.toFixed(3)} MB</Text>*/}</>
